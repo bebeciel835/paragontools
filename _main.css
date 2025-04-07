@@ -1,0 +1,297 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+  -ms-word-wrap: break-word;
+  word-wrap: break-word;
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--bgColor);
+}
+body > *,
+div > * {
+  color: var(--txtColor);
+  font-family: "Amazon Ember", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  margin: 0;
+}
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  background-color: var(--bgColor);
+  color: var(--txtColor);
+  border: 1px var(--txtColor) solid;
+  border-radius: 2.5px;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--btnBgClr);
+}
+
+input[type="text"],
+select {
+  background-color: var(--bgColor);
+  color: var(--txtColor) !important;
+  border: 1px var(--txtColor) solid;
+  border-radius: 2.5px;
+
+  font-family: inherit;
+
+  width: 75%;
+
+  margin-bottom: 0.5rem !important;
+}
+
+.prgFAB {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0 1.5rem 1.5rem 0;
+  border-radius: 50%;
+  border: none;
+  aspect-ratio: 1 / 1;
+  background-color: #f90;
+  padding: 0.75rem;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 6px var(--shdClrl), 0 3px 6px var(--shdClr2);
+  cursor: pointer;
+  z-index: 5;
+}
+
+.prgFAB:hover {
+  background-color: #c27400;
+}
+
+.toolsTitle {
+  text-align: center;
+}
+.toolsTitle > div > * {
+  margin: 0;
+  text-align: center;
+}
+.lobSelectors > *,
+.FCRIsLoggedIn > *,
+.ledgerHasValue > * {
+  display: inline-block;
+  padding: 0 0.375rem 0 0.375rem;
+}
+.lobSelectors > div > *,
+.FCRIsLoggedIn > div > *,
+.ledgerHasValue > div > * {
+  display: inline-block;
+}
+.lobSelectors > div > span,
+.FCRIsLoggedIn > div > span,
+.ledgerHasValue > div > span {
+  padding-left: 0.25rem;
+}
+
+.toolRows {
+  display: none;
+}
+.toolCol {
+  float: left;
+  padding: 0.5rem;
+}
+.toolCol > div {
+  background-color: var(--bgColor);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 3px 6px var(--shdClrl), 0 3px 6px var(--shdClr2);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.toolCol > div:hover {
+  box-shadow: 0 6px 9px var(--shdClrl), 0 6px 9px var(--shdClr2);
+}
+.toolCol > div > *,
+.toolCol > div > div[FCR-loggedIn] > *,
+.toolCol > div > div[id^="fbaCustRet-"] > * {
+  display: block;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.collapsibleHead > div {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+#dropDwn {
+  display: inline-block;
+  border-radius: 50%;
+  border: none;
+  aspect-ratio: 1 / 1;
+  background-color: #f90;
+  padding: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 6px var(--shdClrl), 0 3px 6px var(--shdClr2);
+  cursor: pointer;
+}
+#dropDwn:hover {
+  background-color: #c27400;
+}
+
+[divider] {
+  width: 100vw;
+  height: 1rem;
+}
+
+.SMEonly {
+  display: none;
+}
+
+.projectCredit {
+  font-family: "Amazon Ember", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+    sans-serif;
+  margin: 0 !important;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: var(--projCredClr);
+  pointer-events: none;
+  font-size: smaller;
+}
+
+img[alt="Selling Partner Services"] {
+  pointer-events: none;
+  margin: 0 auto;
+  width: 20rem;
+  max-width: 100%;
+  height: auto;
+}
+img[isLight],
+img[isDark] {
+  display: none;
+}
+
+.changeTheme-icon {
+  position: relative;
+  top: 0;
+  left: 0;
+  margin: 0.5rem 0 0 0.5rem;
+  cursor: pointer;
+}
+div[FCRLoginIsTrue] {
+  display: none;
+}
+[id~="1ledgerContains"] {
+  display: none !important;
+}
+
+/* disable FAB until website loads */
+button[inverse] {
+  display: none;
+}
+
+/* panel views */
+[FBA],
+[FFT],
+[IIDP] {
+  display: none;
+}
+
+/* display other LOBs when a specific LOB is enabled */
+[isFBA] {
+  display: none;
+}
+
+/* fba customer returns */
+#fbaCustRet-idnt,
+#fbaCustRet-1lpn {
+  display: none;
+}
+
+/* EU OR MEEN? */
+#ifEUMeenBlk,
+#swToMeen,
+#swToEU {
+  display: none;
+}
+select[isMeen] {
+  display: none;
+}
+
+/* grid layout (responsive) */
+@media screen and (max-width: 480px) {
+  .toolRows {
+    grid-template-columns: 100%;
+  }
+}
+@media screen and (min-width: 480px) {
+  .toolRows {
+    grid-template-columns: 50% 50%;
+  }
+}
+@media screen and (min-width: 640px) {
+  .toolRows {
+    grid-template-columns: 33.33% 33.33% 33.33%;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .toolRows {
+    grid-template-columns: 25% 25% 25% 25%;
+  }
+}
+@media screen and (min-width: 1920px) {
+  .toolRows {
+    grid-template-columns: 20% 20% 20% 20% 20%;
+  }
+}
+
+/* color themes */
+.lightMode:root {
+  --txtColor: black;
+  --bgColor: #ededed;
+  --shdClrl: #12121229;
+  --shdClr2: #1212123b;
+  --projCredClr: #e0e0ed;
+  --btnBgClr: #cdcdcd;
+}
+.darkMode:root {
+  --txtColor: white;
+  --bgColor: #121212;
+  --shdClrl: #ededed29;
+  --shdClr2: #ededed3b;
+  --projCredClr: #101010;
+  --btnBgClr: #323232;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --txtColor: black;
+    --bgColor: #ededed;
+    --shdClrl: #12121229;
+    --shdClr2: #1212123b;
+    --projCredClr: #e0e0e0;
+    --btnBgClr: #cdcdcd;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --txtColor: white;
+    --bgColor: #121212;
+    --shdClrl: #ededed29;
+    --shdClr2: #ededed3b;
+    --projCredClr: #101010;
+    --btnBgClr: #323232;
+  }
+}

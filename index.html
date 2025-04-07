@@ -1,0 +1,667 @@
+<!-- WILL PRETTYPRINT THIS LATER -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paragon TOOLS v2</title>
+<link rel="icon" href="https://m.media-amazon.com/images/G/@1/Help/pg._V344538549 .png">
+<link rel="stylesheet" href="css/_main.css" type="text/css" media="all">
+<style type="text/css">
+/* TODO */
+</style>
+<script src="js/_main.js" type="text/javascript"></script>
+<script src="js/paragontools.js" type="text/javascript"></script>
+<script type="text/javascript">
+function init() {
+initStart();
+
+}
+</script>
+</head>
+<body onload="init()">
+<svg id="darkTheme" class="changeTheme-icon" xmlns="http://www.w3.0rg/2000/svg" height="24px" viewBox="0
+-960 960 960" width="24px" fill="#fff">
+<path d="M480-360q50 © 85-35t35-85q0-50-35-85t-85-350-50 0-85 35t-35 8500 50 35 85t85 35Zm@ 80q-83 O-
+141.5-58.5T280-4800q0-83 58.5-141.5T480-680q83 © 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40V-
+80h160v80Zm720 OH760V-80h160v80ZM440-760V-160h80v160h-80Zmo 720v-160h80v160h-80ZM256-6501-101-97 57-59 96
+100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-2121101-97 55 53-97 101-
+59-57Zm326-268Z"></path>
+</svg>
+<svg id="lightTheme" class="changeTheme-icon" xmlns="http://www.w3.0rg/2000/svg" height="24px" viewBox="0
+-960 960 960" width="24px" fill="#000">
+<path d="M480-120q-150 0-255-105T7120-480q0-150 105-255t255-105q14 © 27.5 1t26.5 3gq-41 29-65.5 75.5T444-
+66000 90 63 153t153 63955 © 101-24.5t75-65.5g2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 © 158-
+48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-6600q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82
+198t198 82Zm-10-270Z"></path>
+</svg>
+<button inverse="EU" class="prgFAB btn-NA" title="change to NA" onclick="window.location.replace('?
+region=na&type=' + sessionStorage.getItem('type') + '&theme=' + sessionStorage.getItem('theme’'))">
+<svg xmlns="http://www.w3.0rg/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+Fill="#fff">
+<path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T780-48000-83 31.5-156T197-763q54-54 127-
+85.5T480-880g83 © 156 31.5T763-763q54 54 85.5 127T880-48090 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-
+82v-78g-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36gq0 121 79.5 212T440-162Zm276-102q41-45 62.5-
+100.5T800-48000-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240ql7 ©
+28.5 11.5T600-440v120h40q26 © 47 15.5t29 40.5Z"></path>
+</svg>
+</button>
+<button inverse="NA" class="prgFAB btn-EU" title="change to EU" onclick="window.location.replace('?
+region=eu&type=' + sessionStorage.getItem('type') + '&theme=' + sessionStorage.getItem('theme’'))">
+<svg xmlns="http://www.w3.0rg/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+Fill="#fff">
+<path d="M480-160q18 © 34.5-2t33.5-61-48-72H360v-40g0-33 23.5-56.5T440-360h80v-120h-80q-17 ©-28.5-
+11.5T400-520v-80h-18q-26 ©-44-17.5T7320-661g0-9 2.5-18t7.5-17162-919-101 29-166.5 113T160-480h40v-40q0-17
+11.5-28.5T240-560h80q17 © 28.5 11.5T360-520v40q0 17-11.5 28.5T320-440v40q0 33-23.5 56.5T240-320h-37q42 72 115
+116t162 44Zm304-222q8-23 12-47.5t4-50.500-112-68-197.5T560-790v110q33 © 56.5 23.5T640-600v80q19 © 34 4.5t29
+18.5181 115ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-
+880083 © 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T7763-197q-54 54-127 85.5T480-80Z"></path>
+</svg>
+</button>
+<br>
+<div class="toolsTitle">
+<h1>
+<svg xmlns="http://www.w3.0rg/2000/svg" xmlns:xlink="http://www.w3.0rg/1999/x1link" width="24px"
+height="24px" viewBox="@ © 24 24" version="1.1">
+<g id="surfacel">
+<path style="stroke: none; fill-rule: evenodd; fill:rgb(94.509804%,35.294119%,14.117648%); fill-
+opacity: 1;" d="M 8.886719 © L 15.644531 3.90625 L 8.558594 7.964844 L 8.542969 7.957031 L 8.542969 15.164062
+L 1.632812 11.1875 L 1.632812 4.195312 Z M 8.886719 0"></path>
+<path style="stroke: none; fill-rule: evenodd; fill:rgb(0%,44.313726%,73.725492%); fill-opacity:
+1;" d="M 16.3125 4.324219 L 22.367188 7.8125 L 22.367188 16.179688 L 15.429688 20.175781 L 15.449219 11.96875
+L 15.453125 11.964844 L 15.449219 11.964844 L 15.402344 11.9375 L 9.234375 8.382812 Z M 16.3125 4.324219">
+</path>
+<path style="stroke: none; fill-rule: evenodd; fill:rgb(69.803923%,76.47059%,0.392157%); fill-
+opacity: 1;" d="M 1.632812 11.96875 L 8.539062 15.96875 L 9.238281 15.5625 L 14.765625 12.359375 L 14.765625
+20.597656 L 8.890625 24 L 1.632812 19.796875 Z M 1.632812 11.96875"></path>
+</g>
+</svg>
+Paragon TOOLS v2 - <span id="rg-title"></span>
+</h1>
+<div id="ifEuMeenBlk">
+<button ifEU id="swToMeen" onclick="window.location.replace('?region=eu&type="' +
+sessionStorage.getItem('type') + '&theme=' + sessionStorage.getItem('theme') + '&isMeen=yes')">switch to
+MEEN</button>
+<button ifEU id="swToEU" onclick="window.location.replace('?region=eu&type="' +
+sessionStorage.getItem('type') + '&theme=' + sessionStorage.getItem('theme') + '&isMeen=no')">switch to
+EU</button>
+</div>
+<br>
+<div>
+<p>Select your LOB:</p>
+<div class="lobSelectors">
+<div><input type="checkbox" id="check-M@"><span>M@</span></div>
+<div><input type="checkbox" id="check-FBA" onclick="enableTools('FBA"')"><span>FBA</span></div>
+<div isFBA><input type="checkbox" id="check-FFT" onclick="enableTools('FFT')"><span>FFT</span>
+
+</div>
+<div><input type="checkbox" id="check-IIDP" onclick="enableTools('IIDP"')"><span>IIDP</span></div>
+</div>
+</div>
+</div>
+<br>
+<div class="collapsibleHead"><div> <!-- collapsible head - genCase -->
+
+<h2>General Management</h2>
+<button id="dropDwn" class="btn-genCase" title="expand" onclick="expp('genCase')">
+<svg id="arrw-genCase" xmlns="http://www.w3.0rg/2000/svg" height="24px" viewBox="0 -960 960 960"
+width="24px" fill="#fff">
+<path d="M480-360 280-560h400L480-360Z"></path>
+
+</svg>
+</button>
+</div></div>
+<div class="genCase toolRows"> <!-- genCase -->
+<div class="SMEonly toolCol"><div> <!-- Launch Paragon Lobby -->
+<h2>Launch Paragon Lobby</h2>
+<br>
+<button onclick="genCase('paragonStart')">start</button>
+</div></div>
+<div class="toolCol"><div> <!-- Paragon CASE -->
+<h2>Paragon CASE</h2>
+<br>
+
+<input type="text" id="caseID" placeholder="CID">
+<button onclick="genCase('cid')">view case</button>
+</div></div>
+<div class="toolCol"><div> <!-- SOP Lookup -->
+<h2>SOP Lookup</h2>
+<br>
+<input type="text" id="sopSearch-value" placeholder="search query">
+<select id="sopSearch-mkt-NA" class="btn-EU">
+<option value="US">US</option>
+<option CA">CA</option>
+<option BR">BR</option>
+<option value="MX">MX</option>
+</select>
+<select isNotMeen id="sopSearch-mkt-EU" class="btn-NA">
+<option value="GB">GB</option>
+<option value="DE">DE</option>
+<option value="ES">ES</option>
+<option value="FR">FR</option>
+<option value="IT">IT</option>
+<option value="NL">NL</option>
+<option value="PL">PL</option>
+<option value="SE">SE</option>
+<option value="TR">TR</option>
+<option value="IE">IE</option>
+</select>
+<select isMeen id="sopSearch-mkt-MEEN" class="btn-NA">
+<option value="AE">AE</option>
+<option value="SA">SA</option>
+<option value="EG">EG</option>
+</select>
+<button onclick="genCase('sopSearch')">search</button>
+</div></div>
+<div FBA class="toolCol"><div> <!-- FCLM -->
+<h2>FCLM</h2>
+<br>
+<input type="text" id="fclm" placeholder="username">
+<button onclick="genCase('fclm')">fetch employee details</button>
+</div></div>
+<div class="SMEonly toolCol"><div> <!-- View Agent's WIP Case -->
+<h2>View Agent's WIP Case</h2>
+<br>
+<input type="text" id="agntWIP" placeholder="agent name">
+<button onclick="genCase('agentWIP')">see Work-in-Progress case/s</button>
+
+</div></div>
+<div class="SMEonly toolCol"><div> <!-- Andon Launcher -->
+<h2>Andon Launcher</h2>
+<br>
+<button onclick="genCase('andonLaunch')">launch Andon (SME/CSM)</button>
+</div></div>
+<!-- «div class="toolCol"><div>
+</div></div> -->
+</div>
+<div divider></div>
+<div class="collapsibleHead"><div> <!-- collapsible head - tixCase -->
+
+<h2>Remedy Tickets</h2>
+<button id="dropDwn" class="btn-tixCase" title="expand" onclick="expp('tixCase')">
+<svg id="arrw-tixCase" xmlns="http://www.w3.0rg/2000/svg" height="24px" viewBox="0 -960 960 960"
+width="24px" fill="#fff">
+<path d="M480-360 280-560h400L480-360Z"></path>
+</svg>
+</button>
+</div></div>
+<div class="tixCase toolRows"> <!-- tixCase -->
+<div class="toolCol"><div> <!-- Remedy Quicklink -->
+<h2>Remedy Quicklink</h2>
+<br>
+<input type="text" id="quickLink" placeholder="GUID / INT ID">
+<button onclick="tixCase('quickLink"')">launch quicklink</button>
+
+</div></div>
+
+<div class="toolCol"><div> <!-- Ticket Lookup -->
+<h2>Ticket Lookup</h2>
+<br>
+
+<input type="text" id="tixLookup" placeholder="GUID / INT ID">
+<button onclick="tixCase('tixLookup')">view ticket</button>
+</div></div>
+</div>
+<div divider></div>
+<div class="collapsibleHead"><div> <!-- collapsible head - soaCase -->
+<h2>Selling on Amazon</h2>
+<button id="dropDwn" class="btn-soaCase" title="expand" onclick="expp('soaCase')">
+<svg id="arrw-soaCase" xmlns="http://www.w3.0rg/2000/svg" height="24px" viewBox="0 -960 960 960"
+width="24px" fill="#fff">
+<path d="M480-360 280-560h400L480-360Z"></path>
+</svg>
+</button>
+</div></div>
+<div class="soaCase toolRows"> <!-- soaCase -->
+<div class="toolCol"><div> <!-- SPOT: ASIN Troubleshooting -->
+<h2>SPOT: ASIN Troubleshooting</h2>
+<br>
+<input type="text" id="spotASIN-ASIN" maxlength="10" placeholder="ASIN">
+<input type="text" id="spotASIN-CID" maxlength="11" placeholder="CID">
+<select id="spotASIN-rgn-NA" class="btn-EU">
+<option value="1">US</option>
+<option 7">CA</option>
+<option 771770" >BR</option>
+<option value="526970">MX</option>
+</select>
+<select isNotMeen id="spotASIN-rgn-EU" class="btn-NA">
+<option value="3">GB</option>
+<option value="4">DE</option>
+<option value="44551">ES</option>
+<option value="5">FR</option>
+<option value="35691">IT</option>
+<option value="328451">NL</option>
+<option value="712115121">PL</option>
+<option value="704403121">SE</option>
+<option value="338851">TR</option>
+<option value="753556201">IE</option>
+</select>
+<select isMeen id="spotASIN-rgn-MEEN" class="btn-NA">
+<option value="338801">AE</option>
+<option value="338811">SA</option>
+<option value="623225021">EG</option>
+
+</select>
+<button onclick="soaCase('spotASIN')">view ASIN</button>
+</div></div>
+<div class="toolCol"><div> <!-- SPOT: Orders Tool -->
+<h2>SPOT: Orders Tool</h2>
+<br>
+
+<input type="text" id="spotOID-OID" maxlength="19" placeholder="Order ID">
+<input type="text" id="spotOID-CID" maxlength="11" placeholder="CID">
+<select id="spotOID-rgn-NA" class="btn-EU">
+<option value="1">US</option>
+<option value="7">CA</option>
+<option value="771770">BR</option>
+<option value="526970">MX</option>
+</select>
+<select isNotMeen id="spotOID-rgn-EU" class="btn-NA">
+<option value="3">GB</option>
+<option value="4">DE</option>
+<option value="44551">ES</option>
+<option value="5">FR</option>
+<option value="35691">IT</option>
+<option value="328451">NL</option>
+<option value="712115121">PL</option>
+<option 704403121" >SE</option>
+<option 338851">TR</option>
+<option value="753556201">IE</option>
+</select>
+<select isMeen id="spotOID-rgn-MEEN" class="btn-NA">
+<option value="338801">AE</option>
+<option valu 338811">SA</option>
+<option value="623225021">EG</option>
+
+</select>
+<button onclick="soaCase('spotOID')">view order</button>
+</div></div>
+<div class="toolCol"><div> <!-- Simple Reconciled Product Data View -->
+<h2>Simple Reconciled Product Data View</h2>
+<br>
+
+<input type="text" id="srpdv-asin" maxlength="10" placeholder="ASIN">
+<select id="srpdv-rgn-NA" class="btn-EU">
+<option value="1">US</option>
+<option value="7">CA</option>
+<option value="771770">BR</option>
+<option value="526970">MX</option>
+</select>
+<select isNotMeen id="srpdv-rgn-EU" class="btn-NA">
+
+<option 3">GB</option>
+<option 4">DE</option>
+<option 44551" >ES</option>
+
+<option 5">FR</option>
+
+<option 35691">IT</option>
+<option 328451">NL</option>
+<option 712115121" >PL</option>
+<option 704403121" >SE</option>
+
+<option 338851">TR</option>
+<option value="753556201">IE</option>
+</select>
+<select isMeen id="srpdv-rgn-MEEN" class="btn-NA">
+<option value="338801">AE</option>
+<option value="338811">SA</option>
+<option value="623225021">EG</option>
+</select>
+<button onclick="soaCase('srpdv')">view ASIN (CSI)</button>
+</div></div>
+<div class="toolCol"><div> <!-- Blame-0 -->
+<h2>Blame-0</h2>
+<br>
+<input type="text" id="blameO-ASIN" maxlength="10" placeholder="ASIN">
+<input type="text" id="blameO-attr" placeholder="attribute">
+<select id="blameO-rgn-NA" class="btn-EU">
+<option value="1">US</option>
+<option 7">CA</option>
+<option 771770" >BR</option>
+<option value="526970">MX</option>
+</select>
+<select isNotMeen id="blameO-rgn-EU" class="btn-NA">
+<option value="3">GB</option>
+<option value="4">DE</option>
+<option value="44551">ES</option>
+<option value="5">FR</option>
+<option value="35691">IT</option>
+<option value="328451">NL</option>
+<option value="712115121">PL</option>
+<option value="704403121">SE</option>
+<option value="338851">TR</option>
+<option value="753556201">IE</option>
+</select>
+<select isMeen id="blameO-rgn-MEEN" class="btn-NA">
+<option value="338801">AE</option>
+<option value="338811">SA</option>
+<option value="623225021">EG</option>
+
+</select>
+
+<button onclick="soaCase('blame0')">show attribute (CSI)</button>
+</div></div>
+<div class="toolCol"><div> <!-- Show Gating Decisions -->
+
+<h2>Show Gating Decisions</h2>
+
+<br>
+
+<input type="text" id="showGate-ASIN" maxlength="10" placeholder="ASIN">
+<input type="text" id="showGate-MCID" placeholder="MCID">
+<select id="showGate-rgn-NA" class="btn-EU">
+<option value="1">US</option>
+<option value="7">CA</option>
+<option value="771770">BR</option>
+<option value="526970">MX</option>
+</select>
+<select isNotMeen id="showGate-rgn-EU" class="btn-NA">
+<option value="3">GB</option>
+<option 4">DE</option>
+<option value="44551">ES</option>
+<option value="5">FR</option>
+<option value="35691">IT</option>
+<option value="328451">NL</option>
+
+<option 712115121" >PL</option>
+<option 704403121" >SE</option>
+<option 338851">TR</option>
+
+<option value="753556201">IE</option>
+</select>
+<select isMeen id="showGate-rgn-MEEN" class="btn-NA">
+<option value="338801">AE</option>
+<option valu 338811">SA</option>
+<option value="623225021">EG</option>
+
+</select>
+
+<button onclick="soaCase('showGate')">is the ASIN gated? (CSI)</button>
+</div></div>
+<div class="toolCol"><div> <!-- Submission History -->
+
+<h2>Submission History</h2>
+
+<br>
+
+<input type="text" id="submHist-MCID" placeholder="MCID">
+<input type="text" id="submHist-SKU" placeholder="SKU">
+<select id="submHist-rgn-NA" class="btn-EU">
+
+<option value="1">US</option>
+
+<option value="7">CA</option>
+
+<option value="771770">BR</option>
+
+<option value="526970">MX</option>
+</select>
+<select isNotMeen id="submHist-rgn-EU" class="btn-NA">
+
+<option value="3">GB</option>
+
+<option 4">DE</option>
+<option 44551" >ES</option>
+<option 5">FR</option>
+<option 35691">IT</option>
+<option 328451">NL</option>
+
+<option 712115121" >PL</option>
+<option value="704403121">SE</option>
+<option value="338851">TR</option>
+<option value="753556201">IE</option>
+</select>
+<select isMeen id="submHist-rgn-MEEN" class="btn-NA">
+<option value="338801">AE</option>
+<option value="338811">SA</option>
+<option value="623225021">EG</option>
+
+</select>
+<button onclick="soaCase('submHist')">show merchant submissions (CSI)</button>
+</div></div>
+<div class="toolCol"><div> <!-- Global Selling Support Preferences -->
+<h2>Global Selling Support Preferences</h2>
+<br>
+
+<input type="text" id="globalsel" placeholder="MCID">
+<button onclick="soaCase('globalsel')">determine COO</button>
+
+</div></div>
+</div>
+<div divider></div>
+<div FBA class="collapsibleHead"><div> <!-- collapsible head - fbaCase -->
+
+<h2> Fulfillment by Amazon</h2>
+<button id="dropDwn" class="btn-fbaCase" title="expand" onclick="expp('fbaCase')">
+<svg id="arrw-fbaCase" xmlns="http://www.w3.0rg/2000/svg" height="24px" viewBox="0 -960 960 960"
+width="24px" fill="#fff">
+<path d="M480-360 280-560h400L480-360Z"></path>
+</svg>
+</button>
+</div></div>
+<div FBA>
+<div class="fbaCase toolRows"> <!-- fbaCase -->
+<div class="toolCol"><div> <!-- ILAC -->
+<h2>ILAC</h2>
+<br>
+<input type="text" id="ilac" maxlength="12" placeholder="SID">
+<button onclick="fbaCase('ilac')">view status</button>
+</div></div>
+<div class="toolCol"><div> <!-- FNSKU Lookup -->
+<h2>FNSKU Lookup</h2>
+<br>
+<input type="text" id="hitchLook" maxlength="10" placeholder="FNSKU">
+<button onclick="fbaCase('hitchLook"')">review FNSKU dispositions</button>
+</div></div>
+<div class="toolCol"><div> <!-- Relo -->
+<h2>RelLo</h2>
+<br>
+<input type="text" id="relLo-MCID" placeholder="MCID">
+<input type="text" id="relLo-RID" placeholder="RO ID">
+<button onclick="fbaCase('reLo"')">view status</button>
+</div></div>
+<div class="toolCol"><div> <!-- RMS Lookup -->
+<h2>RMS Lookup</h2>
+<br>
+<input type="text" id="rmsLookup" maxlength="11" placeholder="RMSID">
+<button onclick="fbaCase('rmsLookup')">view RMS</button>
+</div></div>
+<div FFT class="toolCol"><div> <!-- SWIVT -->
+<h2>SWIVT</h2>
+<br>
+<input type="text" id="SWIVT-mcid" placeholder="MCID">
+<input type="text" id="SWIVT-fnsku" placeholder="FNSKU">
+<button onclick="fbaCase('SWIVT')">discrepancy check</button>
+
+</div></div>
+
+<div class="toolCol"><div> <!-- Does SID Match? (Unused Shipping Labels) -->
+<h2>Does SID Match? (Unused Shipping Labels)</h2>
+<br>
+
+<input type="text" id="sidMatch-MCID" placeholder="MCID">
+<input type="text" id="sidMatch-SID" maxlength="12" placeholder="SID">
+<button onclick="fbaCase('sidMatch')">determine matches</button>
+</div></div>
+<div class="toolCol"><div> <!-- FC Research -->
+<h2>FC Research</h2>
+<div class="FCRIsLoggedIn">
+<div><input type="checkbox" id="check-FCR" onclick="enableTools('FCR"')"><span>I am logged
+in</span></div>
+</div>
+<br>
+<div FCRLoginIsFalse FCR-loggedIn>
+<p style="padding-bottom: ©.5rem;">you may be required to log in using your Badge ID. in order to
+determine your Badge ID, use FCLM.</p>
+<p style="padding-bottom: ©.5rem;">once you are logged in, close the tab; then check the box
+above to access "FC Research".</p>
+<button onclick="window.open('https://fcmenu-dub-regionalized.corp.amazon.com/openid/login')">1log
+in to access FC Research</button>
+</div>
+<div FCRLoginIsTrue FCR-loggedIn>
+<input type="text" style="text-transform: uppercase;" id="FCR-FC" maxlength="4" placeholder="FC">
+<input type="text" id="FCR-FNSKU" maxlength="10" placeholder="FNSKU">
+<button onclick="fbaCase('FCR')">launch FC Research</button>
+
+</div>
+
+</div></div>
+
+<div FFT class="toolCol"><div> <!-- Serenity -->
+<h2>Serenity</h2>
+<br>
+
+<input type="text" id="serenity" placeholder="TRID">
+<button onclick="fbaCase('serenity')">view transaction events</button>
+</div></div>
+</div>
+</div>
+<div FBA divider></div>
+<div class="collapsibleHead"><div> <!-- collapsible head - scCase -->
+<h2>Seller Central</h2>
+<button id="dropDwn" class="btn-scCase" title="expand" onclick="expp('scCase’')">
+<svg id="arrw-scCase" xmlns="http://www.w3.0rg/2000/svg" height="24px" viewBox="0 -960 960 960"
+width="24px" fill="#fff">
+<path d="M480-360 280-560h400L480-360Z"></path>
+</svg>
+</button>
+</div></div>
+<div class="scCase toolRows"> <!-- scCase -->
+<div class="toolCol"><div> <!-- Manage Your Inventory -->
+<h2>Manage Your Inventory</h2>
+<br>
+<input type="text" id="MYI-idnt" placeholder="ASIN, SKU, FNSKU">
+<select id="MYI-type">
+<option value="ASIN">ASIN</option>
+<option value="SKU">SKU</option>
+<option value="FNSKU">FNSKU</option>
+
+</select>
+<button onclick="scCase('MYI')">retrieve info</button>
+</div></div>
+<div class="toolCol"><div> <!-- Fix Your Products -->
+<h2>Fix Your Products</h2>
+<br>
+
+<input type="text" id="FYP-idnt" placeholder="ASIN, SKU">
+
+<select id="FYP-type">
+<option value="ASIN">ASIN</option>
+<option value="SKU">SKU</option>
+
+</select>
+<button onclick="scCase('FYP')">view listing issues</button>
+</div></div>
+<div FBA class="toolCol"><div> <!-- Fix Stranded Inventory -->
+<h2>Fix Stranded Inventory</h2>
+<br>
+
+<input type="text" id="FSI-idnt" placeholder="ASIN, SKU, FNSKU">
+
+<select id="FSI-type">
+<option value="ASIN">ASIN</option>
+<option value="SKU">SKU</option>
+<option value="FNSKU">FNSKU</option>
+
+</select>
+
+<button onclick="scCase('FSI')">view stranded inventory</button>
+</div></div>
+<div class="toolCol"><div> <!-- Order Details -->
+
+<h2>Order Details</h2>
+
+<br>
+
+<input type="text" id="mngOrd" maxlength="19" placeholder="0ID">
+<button onclick="scCase('mngOrd')">view order</button>
+
+</div></div>
+
+<div class="toolCol"><div> <!-- Manage Order Returns -->
+<h2>Manage Order Returns</h2>
+<br>
+
+<input type="text" id="mngRet-idnt" maxlength="19" placeholder="0ID, RMA, TRID, ASIN">
+<select id="mngRet-type">
+
+<option value="OrderId">Order ID</option>
+
+<option valu RmaId">RMA ID</option>
+
+<option value="CarrierTrackingId">Tracking ID</option>
+
+<option value="Asin">ASIN</option>
+
+</select>
+<button onclick="scCase('mngRet')">view order</button>
+</div></div>
+<div FBA class="toolCol"><div> <!-- Reimbursements Report -->
+<h2>Reimbursements Report</h2>
+<br>
+
+<input type="text" id="rmsRep-rms" placeholder="RMSID">
+<select id="rmsRep-time">
+<option value="1">Yesterday</option>
+<option
+<option
+<option
+<option
+<option
+
+14">14 days</option>
+30">30 days</option>
+90">90 days</option>
+
+<option 180">180 days</option>
+<option value="365">365 days</option>
+</select>
+<button onclick="scCase('rmsRep')">view RMS details</button>
+</div></div>
+<div FBA class="toolCol"><div> <!-- Customer Shipment Sales -->
+<h2>Customer Shipment Sales</h2>
+<br>
+
+<input type="text" id="cxShipSales-idnt" placeholder="ASIN, FNSKU, OID">
+<select id="cxShipSales-type">
+<option value="ASIN">ASIN</option>
+<option value="FNSKU">FNSKU</option>
+<option value="0ID">Order ID</option>
+</select>
+<select id="cxShipSales-time">
+<option value="@">Today</option>
+<option value="1">Yesterday</option>
+<option
+<option
+<option
+<option
+<option
+
+14">14 days</option>
+30">30 days</option>
+90">90 days</option>
+
+<option 180">180 days</option>
+<option value="365">365 days</option>
+</select>
+<button onclick="scCase('cxShipSales')">view sales</button>
+</div></div>
+<div FBA class="toolCol"><div> <!-- Removal Order Details -->
+<h2>Removal Order Details</h2>
+<br>
+
+<input type="text" id="R0id" placeholder="RO ID">
+<button onclick="scCase('R0id')">view Removal Order</button>
+
+</div></div>
+
+<div FBA class="toolCol"><div> <!-- FBA Customer Returns -->
+<h2>FBA Customer Returns</h2>
+<br>
+
+<select id="fbaCustRet-type" onchange="selectFbaCustRetType()">
+<option value="idnt">FBA Return Lookup</option>
+<option value="1lpn">LPN Lookup</option>
