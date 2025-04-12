@@ -8,11 +8,9 @@ body {
   word-wrap: break-word;
   scroll-behavior: smooth;
 }
-
 * {
   box-sizing: border-box;
 }
-
 html {
   background-color: var(--bgColor);
 }
@@ -29,7 +27,6 @@ video {
   max-width: 100%;
   height: auto;
 }
-
 button {
   background-color: var(--bgColor);
   color: var(--txtColor);
@@ -38,25 +35,19 @@ button {
   font-family: inherit;
   cursor: pointer;
 }
-
 button:hover {
   background-color: var(--btnBgClr);
 }
-
 input[type="text"],
 select {
   background-color: var(--bgColor);
   color: var(--txtColor) !important;
   border: 1px var(--txtColor) solid;
   border-radius: 2.5px;
-
   font-family: inherit;
-
   width: 75%;
-
   margin-bottom: 0.5rem !important;
 }
-
 .prgFAB {
   position: absolute;
   bottom: 0;
@@ -67,17 +58,16 @@ select {
   aspect-ratio: 1 / 1;
   background-color: #f90;
   padding: 0.75rem;
+  display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 3px 6px var(--shdClrl), 0 3px 6px var(--shdClr2);
+  box-shadow: 0 3px 6px var(--shdClr1), 0 3px 6px var(--shdClr2);
   cursor: pointer;
   z-index: 5;
 }
-
 .prgFAB:hover {
   background-color: #c27400;
 }
-
 .toolsTitle {
   text-align: center;
 }
@@ -101,7 +91,6 @@ select {
 .ledgerHasValue > div > span {
   padding-left: 0.25rem;
 }
-
 .toolRows {
   display: none;
 }
@@ -113,20 +102,20 @@ select {
   background-color: var(--bgColor);
   padding: 0.5rem;
   border-radius: 0.5rem;
-  box-shadow: 0 3px 6px var(--shdClrl), 0 3px 6px var(--shdClr2);
+  box-shadow: 0 3px 6px var(--shdClr1), 0 3px 6px var(--shdClr2);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 .toolCol > div:hover {
-  box-shadow: 0 6px 9px var(--shdClrl), 0 6px 9px var(--shdClr2);
+  box-shadow: 0 6px 9px var(--shdClr1), 0 6px 9px var(--shdClr2);
 }
 .toolCol > div > *,
 .toolCol > div > div[FCR-loggedIn] > *,
-.toolCol > div > div[id^="fbaCustRet-"] > * {
+.toolCol > div > div[id^="fbaCustRet-"] > *,
+.toolCol > div > div[id^="serenity-"] > * {
   display: block;
   text-align: center;
   margin: 0 auto;
 }
-
 .collapsibleHead > div {
   padding: 0.5rem;
   display: flex;
@@ -143,22 +132,19 @@ select {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 3px 6px var(--shdClrl), 0 3px 6px var(--shdClr2);
+  box-shadow: 0 3px 6px var(--shdClr1), 0 3px 6px var(--shdClr2);
   cursor: pointer;
 }
 #dropDwn:hover {
   background-color: #c27400;
 }
-
 [divider] {
   width: 100vw;
   height: 1rem;
 }
-
 .SMEonly {
   display: none;
 }
-
 .projectCredit {
   font-family: "Amazon Ember", system-ui, -apple-system, BlinkMacSystemFont,
     "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
@@ -171,19 +157,18 @@ select {
   pointer-events: none;
   font-size: smaller;
 }
-
 img[alt="Selling Partner Services"] {
   pointer-events: none;
   margin: 0 auto;
   width: 20rem;
   max-width: 100%;
   height: auto;
+  filter: drop-shadow(0 3px 6px var(--shdClr2));
 }
 img[isLight],
 img[isDark] {
   display: none;
 }
-
 .changeTheme-icon {
   position: relative;
   top: 0;
@@ -194,34 +179,29 @@ img[isDark] {
 div[FCRLoginIsTrue] {
   display: none;
 }
-[id~="1ledgerContains"] {
+[id^="ledgerContains"] {
   display: none !important;
-}
-
-/* disable FAB until website loads */
+} /* disable FAB until website loads */
 button[inverse] {
   display: none;
-}
-
-/* panel views */
+} /* panel views */
 [FBA],
 [FFT],
 [IIDP] {
   display: none;
-}
-
-/* display other LOBs when a specific LOB is enabled */
+} /* display other LOBs when a specific LOB is enabled */
 [isFBA] {
   display: none;
-}
-
-/* fba customer returns */
+} /* fba customer returns */
 #fbaCustRet-idnt,
-#fbaCustRet-1lpn {
+#fbaCustRet-lpn {
   display: none;
-}
-
-/* EU OR MEEN? */
+} /* serenity */
+#serenity-pthfnd,
+#serenity-nortn,
+#serenity-FNSKU {
+  display: none;
+} /* EU OR MEEN? */
 #ifEUMeenBlk,
 #swToMeen,
 #swToEU {
@@ -229,9 +209,7 @@ button[inverse] {
 }
 select[isMeen] {
   display: none;
-}
-
-/* grid layout (responsive) */
+} /* grid layout (responsive) */
 @media screen and (max-width: 480px) {
   .toolRows {
     grid-template-columns: 100%;
@@ -256,21 +234,19 @@ select[isMeen] {
   .toolRows {
     grid-template-columns: 20% 20% 20% 20% 20%;
   }
-}
-
-/* color themes */
+} /* color themes */
 .lightMode:root {
   --txtColor: black;
   --bgColor: #ededed;
-  --shdClrl: #12121229;
+  --shdClr1: #12121229;
   --shdClr2: #1212123b;
-  --projCredClr: #e0e0ed;
+  --projCredClr: #e0e0e0;
   --btnBgClr: #cdcdcd;
 }
 .darkMode:root {
   --txtColor: white;
   --bgColor: #121212;
-  --shdClrl: #ededed29;
+  --shdClr1: #ededed29;
   --shdClr2: #ededed3b;
   --projCredClr: #101010;
   --btnBgClr: #323232;
@@ -279,7 +255,7 @@ select[isMeen] {
   :root {
     --txtColor: black;
     --bgColor: #ededed;
-    --shdClrl: #12121229;
+    --shdClr1: #12121229;
     --shdClr2: #1212123b;
     --projCredClr: #e0e0e0;
     --btnBgClr: #cdcdcd;
@@ -289,7 +265,7 @@ select[isMeen] {
   :root {
     --txtColor: white;
     --bgColor: #121212;
-    --shdClrl: #ededed29;
+    --shdClr1: #ededed29;
     --shdClr2: #ededed3b;
     --projCredClr: #101010;
     --btnBgClr: #323232;

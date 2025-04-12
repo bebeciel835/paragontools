@@ -2,7 +2,7 @@
 // stage 2: agtType(typ)
 // stage 3: themeMode(mde)
 // stage 4: onlyMeenIfEU() (EU ONLY)
-// stage 5: hdSel(rr);
+// stage 5: hdSel(rr)
 
 function initStart() {
   // provision the metadata
@@ -12,159 +12,142 @@ function initStart() {
   sessionStorage.setItem("theme", "");
   rgnSel();
   selectFbaCustRetType();
+  selectSerenityType();
   document.body.insertAdjacentHTML(
     "afterend",
-    `<p class="projectCredit">a project by <b>edwhonti@amazon.ph</b></p>`
+    `a project by edwhonti@amazon.ph`
   );
   document.getElementById("check-M@").checked = true;
   document.getElementById("check-M@").disabled = true;
 }
 
 function rgnSel() {
-  let rgn = new URLSearchParams(window.location.search).get("region");
-  if (rgn == "na") {
-    sessionStorage.setItem("region", rgn);
-    sessionStorage.setItem("scWeb", "sellercentral");
-    desument.title += " - " + rgn.toupperCase();
-    document.titraeentBVId("rg-title").innerHTML = rgn.toUpperCase();
-    agtType(sessionstorage.getItem("type"));
-    themeMode();
-    hdsel(rgn);
-  } else if (rgn == "eu") {
-    sessionStorage.setItem("region", rgn);
-    sessionStorage.setItem("scWeb", "sellercentral-europe");
-    desument.title += " - " + rgn.toupperCase();
-    document.titraeentBVId("rg-title").innerHTML = rgn.toUpperCase();
-    agtType(sessionstorage.getItem("type"));
-    themeMode();
-    onlyMeenIfEU();
-    hdsel(rgn);
-    document.getElementById("ifEuMeenBlk").style.display = "block";
-  } else {
-    window.location.replace("?region=na");
-  }
+  const rgn = new URLSearchParams(window.location.search).get("region") || "na"; // default to "na" if no region is specified
+  const regionSettings = {
+    na: { scWeb: "sellercentral", extraActions: () => hdSel(rgn) },
+    eu: {
+      scWeb: "sellercentral-europe",
+      extraActions: () => {
+        onlyMeenIfEU();
+        hdSel(rgn);
+        document
+          .getElementById("ifEuMeenBlk")
+          .setAttribute("style", "display: block");
+      },
+    },
+  };
+  const settings = regionSettings[rgn] || regionSettings.na;
+  sessionStorage.setItem("region", rgn);
+  sessionStorage.setItem("scWeb", settings.scWeb);
+  document.title += ` - ${rgn.toUpperCase()}`;
+  document.getElementById("rg-title").innerHTML = rgn.toUpperCase();
+  agtType(sessionStorage.getItem("type"));
+  themeMode();
+  settings.extraActions();
   document
-    .querySelector('button[inverse="' + rgn.toUpperCase() + '"]')
-    .setAttribute("style", "display: flex;");
-  return;
+    .querySelector(`button[inverse="${rgn.toUpperCase()}"]`)
+    .setAttribute("style", "display: flex");
 }
 
 function hdSel(rr) {
   // workaround: https://stackoverflow.com/questions/3607291/javascript-and-getelementbyid-for-multiple-elements-with-the-same-id
-  let btnRgn = document.querySelectorAll(".btn-" + rgn.toUpperCase());
+  let btnRgn = document.querySelectorAll(".btn-" + rr.toUpperCase());
   for (let b = 0; b < btnRgn.length; b++) {
-    btnRgn[b].style.display = "none";
+    btnRgn[b].setAttribute("style", "display: none");
   }
   return;
 }
 
 function agtType(typ) {
-  typ = new URLSearchParams(window.location.search).get("type");
-  if (typ == "agent") {
-    sessionStorage.setItem("type", typ);
-    document.title += " (" + typ.toUpperCase() + "MODE)";
-  } else if (typ == "sme") {
-    sessionStorage.setItem("type", typ);
-    document.title += " (" + typ.toUpperCase() + "MODE)";
-    let SMEonly = document.querySelectorAll(".SME-only");
-    for (let b = 0; b < SMEonly.length; b++) {
-      SMEonly[b].style.display = "block";
-    }
-  } else {
+  typ = new URLSearchParams(window.location.search).get("type") || "agent"; // default to "agent" if no type is provided
+  sessionStorage.setItem("type", typ);
+  document.title += ` (${typ.toUpperCase()} MODE)`;
+  if (typ === "sme") {
+    document.querySelectorAll(".SMEonly").forEach((element) => {
+      element.setAttribute("style", "display: block");
+    });
+  }
+  if (typ !== "agent" && typ !== "sme") {
     window.location.replace(
-      "?region=" + sessionStorage.getItem("region") + "&type=agent"
+      `?region=${sessionStorage.getItem("region")}&type=agent`
     );
   }
 }
 
-// expand
 function expp(cat) {
-  switch (cat) {
-    case "scCase":
-      if (
-        confirm(
-          "PLEASE ENSURE THAT YOU HAVE PEEKED INTO THE SELLER'S ACCOUNT BEFORE CONTNUING!!\n\nhave you Peeked the seller?"
-        ) == true
-      ) {
-        document.querySelector(".btn-" + cat).onclick = () => {
-          coll(cat);
-        };
-        document.querySelector(".btn-" + cat).title = "collapse";
-        document.querySelector("#arrw-" + cat).style.transform =
-          "rotate(180deg)";
-        document.querySelector("." + cat).style.display = "grid";
-        return;
-      } else {
-        alert("please Peek the Seller first before accessing the tools.");
-        throw new Error(
-          "please Peek the Seller first before accessing the tools."
-        );
-      }
-    default:
-      document.querySelector(".btn-" + cat).onclick = () => {
-        coll(cat);
-      };
-      document.querySelector(".btn-" + cat).title = "collapse";
-      document.querySelector("#arrw-" + cat).style.transform = "rotate(180deg)";
-      document.querySelector("." + cat).style.display = "grid";
-      return;
+  // expand
+  if (
+    cat == "scCase" &&
+    !confirm(
+      "PLEASE ENSURE THAT YOU HAVE PEEKED INTO THE SELLER'S ACCOUNT BEFORE CONTINUING!!\n\nHave you Peeked the Seller?"
+    )
+  ) {
+    alert("Please Peek the Seller first before accessing the tools.");
+    throw new Error("Please Peek the Seller first before accessing the tools.");
   }
+  document.querySelector(".btn-" + cat).onclick = () => {
+    coll(cat);
+  };
+  document.querySelector(".btn-" + cat).title = "collapse";
+  document
+    .querySelector("#arrw-" + cat)
+    .setAttribute("style", "transform: rotate(180deg)");
+  document.querySelector("." + cat).setAttribute("style", "display: grid");
 }
-// collapse
 function coll(cat) {
+  // collapse
   document.querySelector(".btn-" + cat).onclick = () => {
     expp(cat);
   };
   document.querySelector(".btn-" + cat).title = "expand";
-  document.querySelector("#arrw-" + cat).style.transform = "rotate(0deg)";
-  document.querySelector("." + cat).style.display = "none";
+  document
+    .querySelector("#arrw-" + cat)
+    .setAttribute("style", "transform: rotate(0deg)");
+  document.querySelector("." + cat).setAttribute("style", "display: none");
 }
 
 function enableTools(lob) {
-  let lobDesig = document.querySelectorAll("div[" + lob + "]");
-  if (document.getElementById("check-" + lob).checked == true) {
-    console.log("CHECKED: " + lob);
+  const updateDisplay = (selector, displayStyle) => {
+    document.querySelectorAll(selector).forEach((element) => {
+      element.setAttribute("style", `display: ${displayStyle}`);
+    });
+  };
+  if (document.getElementById(`check-${lob}`)?.checked) {
+    console.log(`CHECKED: ${lob}`);
     switch (lob) {
       case "FCR":
-        console.log("CHECKED: " + lob);
-        document.querySelector("div[FCRLoginIsTrue]").style.display = "block";
-        document.querySelector("div[FCRLoginIsFalse]").style.display = "none";
+        document
+          .querySelector("div[FCRLoginIsTrue]")
+          ?.setAttribute("style", "display: block");
+        document
+          .querySelector("div[FCRLoginIsFalse]")
+          ?.setAttribute("style", "display: none");
         return;
       case "FBA":
-        for (let b = 0; b < lobDesig.length; b++) {
-          lobDesig[b].style.display = "block";
-        }
-        let isFBA = document.querySelectorAll("div[is" + lob + "]");
-        for (let b = 0; b < isFBA.length; b++) {
-          isFBA[b].style.display = "inline-block";
-        }
+        updateDisplay(`div[${lob}]`, "block");
+        updateDisplay(`div[is${lob}]`, "inline-block");
         return;
       default:
-        for (let b = 0; b < lobDesig.length; b++) {
-          lobDesig[b].style.display = "block";
-        }
+        updateDisplay(`div[${lob}]`, "block");
         return;
     }
   } else {
-    console.log("UNCHECKED: " + lob);
+    console.log(`UNCHECKED: ${lob}`);
     switch (lob) {
       case "FCR":
-        document.querySelector("div[FCRLoginIsTrue]").style.display = "none";
-        document.querySelector("div[FCRLoginIsFalse]").style.display = "block";
+        document
+          .querySelector("div[FCRLoginIsTrue]")
+          ?.setAttribute("style", "display: none");
+        document
+          .querySelector("div[FCRLoginIsFalse]")
+          ?.setAttribute("style", "display: block");
         return;
       case "FBA":
-        for (let b = 0; b < lobDesig.length; b++) {
-          lobDesig[b].style.display = "none";
-        }
-        let isFBA = document.querySelectorAll("div[is" + lob + "]");
-        for (let b = 0; b < isFBA.length; b++) {
-          isFBA[b].style.display = "none";
-        }
+        updateDisplay(`div[${lob}]`, "none");
+        updateDisplay(`div[is${lob}]`, "none");
         return;
       default:
-        for (let b = 0; b < lobDesig.length; b++) {
-          lobDesig[b].style.display = "none";
-        }
+        updateDisplay(`div[${lob}]`, "none");
         return;
     }
   }
@@ -172,203 +155,219 @@ function enableTools(lob) {
 
 function themeMode(mde) {
   mde = new URLSearchParams(window.location.search).get("theme");
-  if (mde == "light") {
-    sessionStorage.setItem("theme", mde);
-    document.documentElement.className += mde + "Mode";
-    document.getElementById("darkTheme").style.display = "none";
-    document.getElementById("lightTheme").title = "change to dark mode";
-    document.getElementById("lightTheme").onclick = () => {
+  const updateTheme = (theme, otherTheme, buttonTitle) => {
+    sessionStorage.setItem("theme", theme);
+    document.documentElement.className += theme + "Mode";
+    document
+      .getElementById(otherTheme + "Theme")
+      .setAttribute("style", "display: none");
+    document.getElementById(theme + "Theme").setAttribute("title", buttonTitle);
+    document.getElementById(theme + "Theme").onclick = () => {
       window.location.replace(
-        "?region=" +
-          sessionStorage.getItem("region") +
-          "&type=" +
-          sessionStorage.getItem("type") +
-          "&theme=dark" +
-          checkEuIfMeen()
+        `?region=${sessionStorage.getItem(
+          "region"
+        )}&type=${sessionStorage.getItem(
+          "type"
+        )}&theme=${otherTheme}${checkifEuMeen()}`
       );
-      document.querySelector("img[is" + mde + "]").style.display = "block";
     };
-  } else if (mde == "dark") {
-    sessionStorage.setItem("theme", mde);
-    document.documentElement.className += mde + "Mode";
-    document.getElementById("darkTheme").style.display = "none";
-    document.getElementById("lightTheme").title = "change to dark mode";
-    document.getElementById("lightTheme").onclick = () => {
-      window.location.replace(
-        "?region=" +
-          sessionStorage.getItem("region") +
-          "&type=" +
-          sessionStorage.getItem("type") +
-          "&theme=light" +
-          checkEuIfMeen()
-      );
-      document.querySelector("img[is" + mde + "]").style.display = "block";
-    };
+    document
+      .querySelector(`img[is${theme}]`)
+      .setAttribute("style", "display: block");
+  };
+  if (mde === "light") {
+    updateTheme("light", "dark", "change to dark mode");
+  } else if (mde === "dark") {
+    updateTheme("dark", "light", "change to light mode");
   } else {
-    // workaround: https://stackoverflow.com/questions/56393880/how-do-i-detect-dark-mode-using-javascript
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      window.location.replace(
-        "?region=" +
-          sessionStorage.getItem("region") +
-          "&type=" +
-          sessionStorage.getItem("type") +
-          "&theme=dark"
-      );
-    } else {
-      window.location.replace(
-        "?region=" +
-          sessionStorage.getItem("region") +
-          "&type=" +
-          sessionStorage.getItem("type") +
-          "&theme=light"
-      );
-    }
+    const prefersDark =
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const defaultTheme = prefersDark ? "dark" : "light";
+    window.location.replace(
+      `?region=${sessionStorage.getItem(
+        "region"
+      )}&type=${sessionStorage.getItem("type")}&theme=${defaultTheme}`
+    );
   }
-  return;
 }
 
 function ledgerHasValue(idnt) {
-  if (document.getElementById(idnt).checked == true) {
-    document
-      .getElementById("ledgerContains" + idnt)
-      .setAttribute("style", "display: block !important;");
-  } else {
-    document
-      .getElementById("ledgerContains" + idnt)
-      .setAttribute("style", "display: none !important;");
+  const ledgerHasElement = document.getElementById("ledgerHas" + idnt);
+  const ledgerContainsElement = document.getElementById(
+    "ledgerContains" + idnt
+  );
+  if (!ledgerHasElement || !ledgerContainsElement) {
+    console.error(
+      `Elements with ID ledgerHas${idnt} or ledgerContains${idnt} not found.`
+    );
+    return;
   }
-  return;
+  if (ledgerHasElement.checked) {
+    ledgerContainsElement.setAttribute("style", "display: block !important");
+  } else {
+    ledgerContainsElement.setAttribute("style", "display: none !important");
+  }
 }
 
 function isAdj() {
-  if (document.getElementById("ledgerEvt").value == "Adjustments") {
-    document
-      .querySelector(".adjSelection")
-      .setAttribute("style", "display: block");
-  } else {
-    document
-      .querySelector(".adjSelection")
-      .setAttribute("style", "display: none");
+  const ledgerEvtValue = document.getElementById("ledgerEvt")?.value;
+  const adjSelectionElement = document.querySelector(".adjSelection");
+  if (!adjSelectionElement) {
+    console.error("Element with class 'adjSelection' not found.");
+    return;
   }
-  return;
+  if (ledgerEvtValue === "Adjustments") {
+    adjSelectionElement.setAttribute("style", "display: block");
+  } else {
+    adjSelectionElement.setAttribute("style", "display: none");
+  }
 }
 
 function selectFbaCustRetType() {
-  let tt = document.getElementById("fbaCustRet-type").value;
+  const tt = document.getElementById("fbaCustRet-type").value;
+  const idntElement = document.getElementById("fbaCustRet-idnt");
+  const lpnElement = document.getElementById("fbaCustRet-lpn");
+  const buttonElement = document.getElementById("fbaCustRet-btn");
   switch (tt) {
     case "idnt":
-      document.getElementById("fbaCustRet-idnt").style.display = "block";
-      document.getElementById("fbaCustRet-lpn").style.display = "none";
-      document.getElementById("fbaCustRet-btn").innerText = "view FBA return";
-      return;
+      idntElement.setAttribute("style", "display: block");
+      lpnElement.setAttribute("style", "display: none");
+      buttonElement.innerText = "view FBA return";
+      break;
     case "lpn":
-      document.getElementById("fbaCustRet-idnt").style.display = "none";
-      document.getElementById("fbaCustRet-lpn").style.display = "block";
-      document.getElementById("fbaCustRet-btn").innerText = "fetch LPN";
-      return;
+      idntElement.setAttribute("style", "display: none");
+      lpnElement.setAttribute("style", "display: block");
+      buttonElement.innerText = "fetch LPN";
+      break;
     default:
       throw new Error("undefined");
   }
 }
 
-function clearAllLegderValues() {
-  let ledgerHas = document.querySelectorAll('input[id^="ledgerHas"]');
-  for (let b = 0; b < ledgerHas.length; b++) {
-    ledgerHas[b].checked = false;
+function selectSerenityType() {
+  const ss = document.getElementById("serenity-type").value;
+  const pthfndElement = document.getElementById("serenity-pthfnd");
+  const nortnElement = document.getElementById("serenity-nortn");
+  const buttonElement = document.getElementById("serenity-btn");
+  switch (ss) {
+    case "pthfnd":
+      pthfndElement.setAttribute("style", "display: block");
+      nortnElement.setAttribute("style", "display: none");
+      buttonElement.innerText = "retrieve results";
+      break;
+    case "nortn":
+      pthfndElement.setAttribute("style", "display: none");
+      nortnElement.setAttribute("style", "display: block");
+      buttonElement.innerText = "view R2_REVERSAL_UNIT";
+      break;
+    default:
+      throw new Error("undefined");
   }
-  let ledgerContains = document.querySelectorAll('input[id^="ledgerContains"]');
-  for (let b = 0; b < ledgerContains.length; b++) {
-    ledgerContains[b].value = "";
-    ledgerContains[b].setAttribute("style", "display: none !important;");
-  }
-  document.getElementById("ledgerEvt").value = "";
-  document.getElementById("ledgerDisp").value = "";
-  let adj = document.querySelectorAll("input[id^='adj']");
-  for (let b = 0; b < adj.length; b++) {
-    adj[b].checked = false;
-  }
-  document.getElementById("ledgerTime").value = "1";
+}
+
+function clearAllLedgerValues() {
+  const updateElements = (selector, action) => {
+    document.querySelectorAll(selector).forEach(action);
+  };
+  updateElements(
+    'input[id^="ledgerHas"]',
+    (element) => (element.checked = false)
+  );
+  updateElements('input[id^="ledgerContains"]', (element) => {
+    element.value = "";
+    element.setAttribute("style", "display: none");
+  });
+  updateElements('input[id^="adj"]', (element) => (element.checked = false));
+  const setValue = (id, value) => {
+    const element = document.getElementById(id);
+    if (element) element.value = value;
+  };
+  setValue("ledgerEvt", "");
+  setValue("ledgerDisp", "");
+  document
+    .querySelector(".adjSelection")
+    ?.setAttribute("style", "display: none");
+  setValue("ledgerTime", "1");
 }
 
 function onlyMeenIfEU() {
-  let region = new URLSearchParams(window.location.search).get("region");
-  switch (region) {
-    case "eu":
-      sessionStorage.setItem("isMeen", "no");
-      let isMeen = new URLSearchParams(window.location.search).get("isMeen");
-      switch (isMeen) {
-        case "yes":
-          sessionStorage.setItem("isMeen", isMeen);
-          let agt = sessionStorage.getItem("type");
-          document.getElementById("swToMeen").style.display = "none";
-          document.getElementById("swToEU").style.display = "inline-block";
-          document.title =
-            "Paragon TOOLS v2 - MEEN (" + agt.toUpperCase() + " MODE)";
-          document.getElementById("rg-title").innerHTML = "MEEN";
-          disableNotMeen();
-          return;
-        case "no":
-          sessionStorage.setItem("isMeen", isMeen);
-          document.getElementById("swToMeen").style.display = "inline-block";
-          document.getElementById("swToEU").style.display = "none";
-          return;
-        default:
-          window.location.replace(
-            "?region=" +
-              sessionStorage.getItem("region") +
-              "&type=" +
-              sessionStorage.getItem("type") +
-              "&theme=" +
-              sessionStorage.getItem("theme") +
-              "&isMeen=no"
-          );
-          return;
-      }
-    default:
-      return;
+  const region = new URLSearchParams(window.location.search).get("region");
+  if (region !== "eu") return;
+  sessionStorage.setItem("isMeen", "no");
+  const isMeen =
+    new URLSearchParams(window.location.search).get("isMeen") || "no";
+  const swToMeen = document.getElementById("swToMeen");
+  const swToEU = document.getElementById("swToEU");
+  const rgTitle = document.getElementById("rg-title");
+  if (!swToMeen || !swToEU || !rgTitle) {
+    console.error(
+      "required elements are missing: swToMeen, swToEU, or rgTitle."
+    );
+    return;
+  }
+  sessionStorage.setItem("isMeen", isMeen);
+  if (isMeen === "no") {
+    swToMeen.setAttribute("style", "display: inline-block");
+    swToEU.setAttribute("style", "display: none");
+  } else if (isMeen === "yes") {
+    const agt = sessionStorage.getItem("type") || "agent";
+    swToMeen.setAttribute("style", "display: none");
+    swToEU.setAttribute("style", "display: inline-block");
+    document.title = `Paragon TOOLS v2 - MEEN (${agt.toUpperCase()} MODE)`;
+    rgTitle.innerHTML = "MEEN";
+    disableNotMeen();
+  } else {
+    const queryParams = new URLSearchParams({
+      region: sessionStorage.getItem("region") || "na",
+      type: sessionStorage.getItem("type") || "agent",
+      theme: sessionStorage.getItem("theme") || "light",
+      isMeen: "no",
+    }).toString();
+    window.location.replace(`?${queryParams}`);
   }
 }
 
 function disableNotMeen() {
-  let isMeen = document.querySelectorAll("select[isMeen]");
-  for (let mm = 0; mm < isMeen.length; mm++) {
-    isMeen[mm].setAttribute("style", "display: block");
-  }
-  let isNotMeen = document.querySelectorAll("select[isNotMeen]");
-  for (let mm = 0; mm < isNotMeen.length; mm++) {
-    isNotMeen[mm].setAttribute("style", "display: none");
-  }
-  return;
+  const updateElements = (selector, displayStyle) => {
+    document.querySelectorAll(selector).forEach((element) => {
+      element.setAttribute("style", `display: ${displayStyle}`);
+    });
+  };
+  updateElements("select[isMeen]", "block");
+  updateElements("select[isNotMeen]", "none");
 }
 
 function checkifEuMeen() {
-  let region = new URLSearchParams(window.location.search).get("region");
-  switch (region) {
-    case "eu":
-      let isMeen = new URLSearchParams(window.location.search).get("isMeen");
-      if (isMeen == "yes") {
-        return "&isMeen=yes";
-      } else {
-        return "&isMeen=no";
-      }
-    default:
-      return "";
+  const region = new URLSearchParams(window.location.search).get("region");
+  if (region === "eu") {
+    const isMeen =
+      new URLSearchParams(window.location.search).get("isMeen") || "no";
+    return `&isMeen=${isMeen}`;
   }
+  return "";
 }
 
-function ifUsEuMeen(rrrr) {
-  rrrr = new URLSearchParams(window.location.search)
+function ifUsEuMeen() {
+  const region = new URLSearchParams(window.location.search)
     .get("region")
-    .toUpperCase();
-  switch (rrrr) {
-    case "NA":
-      return rrrr;
-    default:
-      let eu_meen = new URLSearchParams(window.location.search).get("isMeen");
-      if (eu_meen == "yes") {
-        return "MEEN";
-      } else {
-        return rrrr;
-      }
+    ?.toUpperCase();
+  if (region === "NA") {
+    return region;
   }
+  const euMeen = new URLSearchParams(window.location.search).get("isMeen");
+  return euMeen === "yes" ? "MEEN" : region;
+}
+
+function serenityHasFNSKU() {
+  const serenityHasFNSKUElement = document.getElementById("serenityHasFNSKU");
+  const serenityFNSKUElement = document.getElementById("serenity-FNSKU");
+  if (!serenityHasFNSKUElement || !serenityFNSKUElement) {
+    console.error(
+      "required elements 'serenityHasFNSKU' or 'serenity-FNSKU' not found."
+    );
+    return;
+  }
+  const displayStyle = serenityHasFNSKUElement.checked ? "block" : "none";
+  serenityFNSKUElement.setAttribute("style", `display: ${displayStyle}`);
 }
