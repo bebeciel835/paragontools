@@ -53,18 +53,24 @@
       async function dlNow(arg) {
         switch (arg) {
           case "zippedfile":
-            document.getElementById("unknownFrame").src = "./paragontoolsv2.zip";
+            document.getElementById("unknownFrame").src =
+              "./paragontoolsv2.zip";
             return;
           case "singlefile":
-            const response = await fetch('./index.html'); // Replace with your actual file path
-            const htmlContent = await response.text();
-            const blob = new Blob([htmlContent], { type: 'text/html' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'downloaded_example.html';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
+            try {
+              const response = await fetch("./paragontools.html"),
+                htmlContent = await response.text(),
+                blob = new Blob([htmlContent], { type: "text/html" }),
+                a = document.createElement("a");
+              a.href = URL.createObjectURL(blob);
+              a.download = "paragontools.html";
+              document.body.appendChild(a);
+              a.click();
+              document.body.removeChild(a);
+            } catch (err) {
+              console.error("file not found:", err);
+            }
+            return;
           default:
             throw new Error("undefined");
         }
@@ -72,7 +78,7 @@
     </script>
   </head>
   <body>
-    <div style="padding: 1rem;">
+    <div style="padding: 1rem">
       <h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -117,9 +123,12 @@
       <br />
       <p>click the button below to download the latest version of the tools.</p>
       <button onclick="dlNow('zippedfile')">download ZIP</button>
-      <br><br>
-      <p>downloading multi-directory code not your cup of tea? a singular file will be provided to you through the button below:</p>
-      <button onclick="dlNow('singlefile')">download HTML</button>
+      <br /><br />
+      <p>
+        downloading multi-directory code not your cup of tea? a singular file
+        is provided to you through the button below.
+      </p>
+      <button onclick="dlNow('singlefile')" disabled>download HTML</button>
       <iframe
         id="unknownFrame"
         src=""
@@ -127,11 +136,8 @@
       ></iframe>
       <br /><br />
       <h2>changelog</h2>
-      <br>
-      <object
-        class="pdf"
-        data="./paragonTOOLS_changelog.pdf"
-      ></object>
+      <br />
+      <object class="pdf" data="./paragonTOOLS_changelog.pdf"></object>
       <br /><br />
       <p>a project by <b>edwhonti@amazon.ph</b></p>
     </div>
