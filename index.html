@@ -50,8 +50,24 @@
       }
     </style>
     <script>
-      function dlNow() {
-        document.getElementById("unknownFrame").src = "./paragontoolsv2.zip";
+      async function dlNow(arg) {
+        switch (arg) {
+          case "zippedfile":
+            document.getElementById("unknownFrame").src = "./paragontoolsv2.zip";
+            return;
+          case "singlefile":
+            const response = await fetch('./index.html'); // Replace with your actual file path
+            const htmlContent = await response.text();
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'downloaded_example.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          default:
+            throw new Error("undefined");
+        }
       }
     </script>
   </head>
@@ -100,7 +116,10 @@
       </h1>
       <br />
       <p>click the button below to download the latest version of the tools.</p>
-      <button onclick="dlNow()">download</button>
+      <button onclick="dlNow('zippedfile')">download ZIP</button>
+      <br><br>
+      <p>downloading multi-directory code not your cup of tea? a singular file will be provided to you through the button below:</p>
+      <button onclick="dlNow('singlefile')">download HTML</button>
       <iframe
         id="unknownFrame"
         src=""
