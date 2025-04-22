@@ -48,31 +48,38 @@
         height: 50rem;
         margin: 0 auto;
       }
+      .dlBtns > * {
+        display: inline-block;
+        margin: 0 0.25rem;
+      }
     </style>
     <script>
       async function dlNow(arg) {
+        let ext, mime;
         switch (arg) {
           case "zippedfile":
-            document.getElementById("unknownFrame").src =
-              "./paragontoolsv2.zip";
-            return;
+            ext = "zip";
+            mime = "text/html";
+            break;
           case "singlefile":
-            try {
-              const response = await fetch("./paragontools.html"),
-                htmlContent = await response.text(),
-                blob = new Blob([htmlContent], { type: "text/html" }),
-                a = document.createElement("a");
-              a.href = URL.createObjectURL(blob);
-              a.download = "paragontools.html";
-              document.body.appendChild(a);
-              a.click();
-              document.body.removeChild(a);
-            } catch (err) {
-              console.error("file not found:", err);
-            }
-            return;
+            ext = "html";
+            mime = "application/zip";
+            break;
           default:
             throw new Error("undefined");
+        }
+        try {
+          const response = await fetch("./paragontoolsv2." + ext),
+            htmlContent = await response.text(),
+            blob = new Blob([htmlContent], { type: mime }),
+            a = document.createElement("a");
+          a.href = URL.createObjectURL(blob);
+          a.download = "paragontoolsv2." + ext;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (err) {
+          console.error("file not found:", err);
         }
       }
     </script>
@@ -121,19 +128,11 @@
         <b>Paragon TOOLS v2</b>
       </h1>
       <br />
-      <p>click the button below to download the latest version of the tools.</p>
-      <button onclick="dlNow('zippedfile')">download ZIP</button>
-      <br /><br />
-      <p>
-        downloading multi-directory code not your cup of tea? a singular file
-        is provided to you through the button below.
-      </p>
-      <button onclick="dlNow('singlefile')" disabled>download HTML</button>
-      <iframe
-        id="unknownFrame"
-        src=""
-        style="display: none; width: 0; height: 0"
-      ></iframe>
+      <p>choose the method to download the tools:</p>
+      <div class="dlBtns">
+        <button onclick="dlNow('zippedfile')">ZIP</button>
+        <button onclick="dlNow('singlefile')" disabled>HTML</button>
+      </div>
       <br /><br />
       <h2>changelog</h2>
       <br />
