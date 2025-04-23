@@ -54,32 +54,34 @@
       }
     </style>
     <script>
-      async function dlNow(arg) {
-        let ext, mime;
+      function dlNow(arg) {
+        let ext, dl;
         switch (arg) {
           case "zippedfile":
-            ext = "zip";
-            mime = "text/html";
-            break;
+            dl = Object.assign(document.createElement("a"), {
+              href: "./paragontoolsv2.zip",
+              rel: "noopener noreferrer",
+              download: "paragontoolsv2.zip",
+            });
+            dl.click();
+            dl.remove();
+            return;
           case "singlefile":
-            ext = "html";
-            mime = "application/zip";
-            break;
+            fetch("./paragontoolsv2.html")
+              .then((response) => response.text())
+              .then((htmlContent) => {
+                dl = document.createElement("a");
+                dl.href = URL.createObjectURL(
+                  new Blob([htmlContent], { type: "text/html" })
+                );
+                dl.download = "paragontoolsv2.html";
+                dl.click();
+                URL.revokeObjectURL(dl.href);
+                dl.remove();
+              });
+            return;
           default:
             throw new Error("undefined");
-        }
-        try {
-          const response = await fetch("./paragontoolsv2." + ext),
-            htmlContent = await response.text(),
-            blob = new Blob([htmlContent], { type: mime }),
-            a = document.createElement("a");
-          a.href = URL.createObjectURL(blob);
-          a.download = "paragontoolsv2." + ext;
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        } catch (err) {
-          console.error("file not found:", err);
         }
       }
     </script>
@@ -130,8 +132,18 @@
       <br />
       <p>choose the method to download the tools:</p>
       <div class="dlBtns">
-        <button onclick="dlNow('zippedfile')">ZIP</button>
-        <button onclick="dlNow('singlefile')" disabled>HTML</button>
+        <button
+          onclick="dlNow('zippedfile')"
+          title="use this if your machine allows extracting of files to a directory. (highly recommend to use VS Code with ZIP extensions to interact with the archive.)"
+        >
+          ZIP
+        </button>
+        <button
+          onclick="dlNow('singlefile')"
+          title="use this if your machine does not allow ZIP files, or that the source code will be imported to an AWS instance."
+        >
+          HTML
+        </button>
       </div>
       <br /><br />
       <h2>changelog</h2>

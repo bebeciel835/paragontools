@@ -3,9 +3,2716 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Paragon TOOLS v2</title>
+    <link
+      rel="icon"
+      href="https://m.media-amazon.com/images/G/01/Help/pg._V344538549_.png"
+    />
+    <link rel="stylesheet" href="css/_main.css" type="text/css" media="all" />
+    <style type="text/css">
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow-x: hidden;
+        -ms-word-wrap: break-word;
+        word-wrap: break-word;
+        scroll-behavior: smooth;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        background-color: var(--bgColor);
+      }
+      body > *,
+      div > * {
+        color: var(--txtColor);
+        font-family: "Amazon Ember", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+          "Open Sans", "Helvetica Neue", sans-serif;
+        margin: 0;
+      }
+      img,
+      video {
+        max-width: 100%;
+        height: auto;
+      }
+      button {
+        background-color: var(--bgColor);
+        color: var(--txtColor);
+        border: 1px var(--txtColor) solid;
+        border-radius: 2.5px;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: var(--btnBgClr);
+      }
+      input[type="text"],
+      select {
+        background-color: var(--bgColor);
+        color: var(--txtColor) !important;
+        border: 1px var(--txtColor) solid;
+        border-radius: 2.5px;
+        font-family: inherit;
+        width: 75%;
+        margin-bottom: 0.5rem !important;
+      }
+      .prgFAB {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 0 1.5rem 1.5rem 0;
+        border-radius: 50%;
+        border: none;
+        aspect-ratio: 1 / 1;
+        background-color: #ff6201;
+        padding: 0.75rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 3px 6px var(--shdClr1), 0 3px 6px var(--shdClr2);
+        cursor: pointer;
+        z-index: 5;
+      }
+      .prgFAB:hover {
+        background-color: #ca4f02;
+      }
+      .toolsTitle {
+        text-align: center;
+      }
+      .toolsTitle > div > * {
+        margin: 0;
+        text-align: center;
+      }
+      .lobSelectors > *,
+      .FCRIsLoggedIn > *,
+      .ledgerHasValue > * {
+        display: inline-block;
+        padding: 0 0.375rem 0 0.375rem;
+      }
+      .lobSelectors > div > *,
+      .FCRIsLoggedIn > div > *,
+      .ledgerHasValue > div > * {
+        display: inline-block;
+      }
+      .lobSelectors > div > span,
+      .FCRIsLoggedIn > div > span,
+      .ledgerHasValue > div > span {
+        padding-left: 0.25rem;
+      }
+      .toolRows {
+        display: none;
+      }
+      .toolCol {
+        float: left;
+        padding: 0.5rem;
+      }
+      .toolCol > div {
+        background-color: var(--bgColor);
+        padding: 0.5rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 3px 6px var(--shdClr1), 0 3px 6px var(--shdClr2);
+        transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+      }
+      .toolCol > div:hover {
+        box-shadow: 0 6px 9px var(--shdClr1), 0 6px 9px var(--shdClr2);
+      }
+      .toolCol > div > *,
+      .toolCol > div > div[FCR-loggedIn] > *,
+      .toolCol > div > div[id^="fbaCustRet-"] > *,
+      .toolCol > div > div[id^="serenity-"] > * {
+        display: block;
+        text-align: center;
+        margin: 0 auto;
+      }
+      .collapsibleHead > div {
+        padding: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+      }
+      #dropDwn {
+        display: inline-block;
+        border-radius: 50%;
+        border: none;
+        aspect-ratio: 1 / 1;
+        background-color: #ff6201;
+        padding: 0.25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 3px 6px var(--shdClr1), 0 3px 6px var(--shdClr2);
+        cursor: pointer;
+      }
+      #dropDwn:hover {
+        background-color: #ca4f02;
+      }
+      [divider] {
+        width: 100vw;
+        height: 1rem;
+      }
+      .SMEonly {
+        display: none;
+      }
+      .projectCredit {
+        font-family: "Amazon Ember", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+          "Open Sans", "Helvetica Neue", sans-serif;
+        margin: 0 !important;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: var(--projCredClr);
+        pointer-events: none;
+        font-size: smaller;
+      }
+      img[alt="Selling Partner Services"] {
+        pointer-events: none;
+        margin: 0 auto;
+        width: 15rem;
+        max-width: 100%;
+        height: auto;
+        filter: drop-shadow(0 3px 6px var(--shdClr2));
+      }
+      img[isLight],
+      img[isDark] {
+        display: none;
+      }
+      .changeTheme-icon {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin: 0.5rem 0 0 0.5rem;
+        cursor: pointer;
+      }
+      div[FCRLoginIsTrue] {
+        display: none;
+      }
+      [id^="ledgerContains"] {
+        display: none !important;
+      }
+      /* disable FAB until website loads */
+      button[inverse] {
+        display: none;
+      }
+      /* panel views */
+      [FBA],
+      [FFT],
+      [IIDP] {
+        display: none;
+      }
+      /* display other LOBs when a specific LOB is enabled */
+      [isFBA] {
+        display: none;
+      }
+      /* fba customer returns */
+      #fbaCustRet-idnt,
+      #fbaCustRet-lpn {
+        display: none;
+      }
+      /* serenity */
+      #serenity-pthfnd,
+      #serenity-nortn,
+      #serenity-FNSKU {
+        display: none;
+      }
+      /* EU OR MEEN? */
+      #ifEUMeenBlk,
+      #swToMeen,
+      #swToEU {
+        display: none;
+      }
+      select[isMeen] {
+        display: none;
+      }
+      /* grid layout (responsive) */
+      @media screen and (max-width: 480px) {
+        .toolRows {
+          grid-template-columns: 100%;
+        }
+      }
+      @media screen and (min-width: 480px) {
+        .toolRows {
+          grid-template-columns: 50% 50%;
+        }
+      }
+      @media screen and (min-width: 640px) {
+        .toolRows {
+          grid-template-columns: 33.33% 33.33% 33.33%;
+        }
+      }
+      @media screen and (min-width: 1280px) {
+        .toolRows {
+          grid-template-columns: 25% 25% 25% 25%;
+        }
+      }
+      @media screen and (min-width: 1920px) {
+        .toolRows {
+          grid-template-columns: 20% 20% 20% 20% 20%;
+        }
+      }
+      /* color themes */
+      .lightMode:root {
+        --txtColor: black;
+        --bgColor: #ededed;
+        --shdClr1: #12121229;
+        --shdClr2: #1212123b;
+        --projCredClr: #e0e0e0;
+        --btnBgClr: #cdcdcd;
+      }
+      .darkMode:root {
+        --txtColor: white;
+        --bgColor: #121212;
+        --shdClr1: #ededed29;
+        --shdClr2: #ededed3b;
+        --projCredClr: #101010;
+        --btnBgClr: #323232;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --txtColor: black;
+          --bgColor: #ededed;
+          --shdClr1: #12121229;
+          --shdClr2: #1212123b;
+          --projCredClr: #e0e0e0;
+          --btnBgClr: #cdcdcd;
+        }
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --txtColor: white;
+          --bgColor: #121212;
+          --shdClr1: #ededed29;
+          --shdClr2: #ededed3b;
+          --projCredClr: #101010;
+          --btnBgClr: #323232;
+        }
+      }
+    </style>
+    <script src="js/_main.js" type="text/javascript"></script>
+    <script src="js/paragontools.js" type="text/javascript"></script>
+    <script type="text/javascript">
+      // stage 1: rgnSel()
+      // stage 2: agtType(typ)
+      // stage 3: themeMode(mde)
+      // stage 4: onlyMeenIfEU() (EU ONLY)
+      // stage 5: hdSel(rr);
+      function init() {
+        // provision the metadata
+        sessionStorage.setItem("region", "na");
+        sessionStorage.setItem("intWebType", "iad");
+        sessionStorage.setItem("type", "agent");
+        sessionStorage.setItem("scWeb", "sellercentral");
+        sessionStorage.setItem("theme", "");
+        rgnSel();
+        selectFbaCustRetType();
+        selectSerenityType();
+        document.body?.insertAdjacentHTML(
+          "afterend",
+          `<p class="projectCredit">a project by <b>edwhonti@amazon.ph</b></p>`
+        );
+        document.getElementById("check-M@").checked = true;
+        document.getElementById("check-M@").disabled = true;
+      }
+      function rgnSel() {
+        let rgn =
+          new URLSearchParams(window.location.search)?.get("region") || "na"; // default to "na" if no region is specified
+        let regionSettings = {
+          na: {
+            scWeb: "sellercentral",
+            intWebType: "iad",
+            extraActions: () => {
+              hdSel(rgn);
+            },
+          },
+          eu: {
+            scWeb: "sellercentral-europe",
+            intWebType: "dub",
+            extraActions: () => {
+              onlyMeenIfEU();
+              hdSel(rgn);
+              document
+                .getElementById("ifEuMeenBlk")
+                ?.setAttribute("style", "display: block");
+            },
+          },
+        };
+        let settings = regionSettings[rgn] || regionSettings.na;
+        sessionStorage.setItem("region", rgn);
+        sessionStorage.setItem("scWeb", settings.scWeb);
+        sessionStorage.setItem("intWebType", settings.intWebType);
+        document.title += ` - ${rgn?.toUpperCase()}`;
+        document.getElementById("rg-title").textContent = rgn?.toUpperCase();
+        document
+          .querySelector(`button[inverse="${rgn?.toUpperCase()}"]`)
+          ?.setAttribute("style", "display: flex");
+        agtType(sessionStorage.getItem("type"));
+        themeMode();
+        settings.extraActions();
+      }
+      function hdSel(rr) {
+        // workaround: https://stackoverflow.com/questions/3607291/javascript-and-getelementbyid-for-multiple-elements-with-the-same-id
+        let btnRgn = document.querySelectorAll(".btn-" + rr?.toUpperCase());
+        for (let b = 0; b < btnRgn.length; b++) {
+          btnRgn[b]?.setAttribute("style", "display: none");
+        }
+        return;
+      }
+      function agtType(typ) {
+        typ =
+          new URLSearchParams(window.location.search)?.get("type") || "agent"; // default to "agent" if no type is provided
+        sessionStorage.setItem("type", typ);
+        document.title += ` (${typ?.toUpperCase()} MODE)`;
+        if (typ == "sme") {
+          document.querySelectorAll(".SMEonly")?.forEach((element) => {
+            element?.setAttribute("style", "display: block");
+          });
+        } else if (!typ) {
+          window.location.replace(
+            `?region=${sessionStorage.getItem("region")}&type=agent`
+          );
+        }
+      }
+      function expp(cat) {
+        // expand
+        if (
+          cat == "scCase" &&
+          !confirm(
+            "PLEASE ENSURE THAT YOU HAVE PEEKED INTO THE SELLER'S ACCOUNT BEFORE CONTINUING!!\n\nHave you Peeked the Seller?"
+          )
+        ) {
+          alert("Please Peek the Seller first before accessing the tools.");
+          throw new Error(
+            "Please Peek the Seller first before accessing the tools."
+          );
+        }
+        document.querySelector(`.btn-${cat}`).onclick = () => {
+          coll(cat);
+        };
+        document.querySelector(`.btn-${cat}`).title = "collapse";
+        document
+          .querySelector(`#arrw-${cat}`)
+          ?.setAttribute("style", "transform: rotate(180deg)");
+        document
+          .querySelector(`.${cat}`)
+          ?.setAttribute("style", "display: grid");
+      }
+      function coll(cat) {
+        // collapse
+        document.querySelector(`.btn-${cat}`).onclick = () => {
+          expp(cat);
+        };
+        document.querySelector(`.btn-${cat}`).title = "expand";
+        document
+          .querySelector(`#arrw-${cat}`)
+          ?.setAttribute("style", "transform: rotate(0deg)");
+        document
+          .querySelector(`.${cat}`)
+          ?.setAttribute("style", "display: none");
+      }
+      function enableTools(lob) {
+        let updateDisplay = (selector, displayStyle) => {
+          document.querySelectorAll(selector)?.forEach((element) => {
+            element?.setAttribute("style", `display: ${displayStyle}`);
+          });
+        };
+        if (document.getElementById(`check-${lob}`).checked) {
+          console.log(`CHECKED: ${lob}`);
+          switch (lob) {
+            case "FCR":
+              document
+                .querySelector("div[FCRLoginIsTrue]")
+                ?.setAttribute("style", "display: block");
+              document
+                .querySelector("div[FCRLoginIsFalse]")
+                ?.setAttribute("style", "display: none");
+              return;
+            case "FBA":
+              updateDisplay(`div[${lob}]`, "block");
+              updateDisplay(`div[is${lob}]`, "inline-block");
+              return;
+            default:
+              updateDisplay(`div[${lob}]`, "block");
+              return;
+          }
+        } else {
+          console.log(`UNCHECKED: ${lob}`);
+          switch (lob) {
+            case "FCR":
+              document
+                .querySelector("div[FCRLoginIsTrue]")
+                ?.setAttribute("style", "display: none");
+              document
+                .querySelector("div[FCRLoginIsFalse]")
+                ?.setAttribute("style", "display: block");
+              return;
+            case "FBA":
+              updateDisplay(`div[${lob}]`, "none");
+              updateDisplay(`div[is${lob}]`, "none");
+              return;
+            default:
+              updateDisplay(`div[${lob}]`, "none");
+              return;
+          }
+        }
+      }
+      function themeMode(mde) {
+        mde = new URLSearchParams(window.location.search)?.get("theme");
+        let updateTheme = (theme, otherTheme, buttonTitle) => {
+          sessionStorage.setItem("theme", theme);
+          document.documentElement.className += theme + "Mode";
+          document
+            .getElementById(`${otherTheme}Theme`)
+            ?.setAttribute("style", "display: none");
+          document
+            .getElementById(`${theme}Theme`)
+            ?.setAttribute("title", buttonTitle);
+          document.getElementById(`${theme}Theme`).onclick = () => {
+            window.location.replace(
+              `?region=${sessionStorage.getItem(
+                "region"
+              )}&type=${sessionStorage.getItem(
+                "type"
+              )}&theme=${otherTheme}${checkifEuMeen()}`
+            );
+          };
+          document
+            .querySelector(`img[is${theme}]`)
+            ?.setAttribute("style", "display: block");
+        };
+        if (mde == "light") {
+          updateTheme("light", "dark", "change to dark mode");
+        } else if (mde == "dark") {
+          updateTheme("dark", "light", "change to light mode");
+        } else {
+          let prefersDark =
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)")?.matches;
+          let defaultTheme = prefersDark ? "dark" : "light";
+          window.location.replace(
+            `?region=${sessionStorage.getItem(
+              "region"
+            )}&type=${sessionStorage.getItem("type")}&theme=${defaultTheme}`
+          );
+        }
+      }
+      function ledgerHasValue(idnt) {
+        let ledgerHasElement = document.getElementById(`ledgerHas${idnt}`);
+        let ledgerContainsElement = document.getElementById(
+          `ledgerContains${idnt}`
+        );
+        if (!ledgerHasElement || !ledgerContainsElement) {
+          throw new Error(
+            `elements with ID ledgerHas${idnt} or ledgerContains${idnt} not found.`
+          );
+        }
+        if (ledgerHasElement.checked) {
+          ledgerContainsElement?.setAttribute(
+            "style",
+            "display: block !important"
+          );
+        } else {
+          ledgerContainsElement?.setAttribute(
+            "style",
+            "display: none !important"
+          );
+        }
+      }
+      function isAdj() {
+        let ledgerEvtValue = document.getElementById("ledgerEvt").value;
+        let adjSelectionElement = document.querySelector(".adjSelection");
+        if (!adjSelectionElement) {
+          throw new Error("element with class 'adjSelection' not found.");
+        }
+        if (ledgerEvtValue == "Adjustments") {
+          adjSelectionElement?.setAttribute("style", "display: block");
+        } else {
+          adjSelectionElement?.setAttribute("style", "display: none");
+        }
+      }
+      function selectFbaCustRetType() {
+        let tt = document.getElementById("fbaCustRet-type").value;
+        let idntElement = document.getElementById("fbaCustRet-idnt");
+        let lpnElement = document.getElementById("fbaCustRet-lpn");
+        let buttonElement = document.getElementById("fbaCustRet-btn");
+        switch (tt) {
+          case "idnt":
+            idntElement?.setAttribute("style", "display: block");
+            lpnElement?.setAttribute("style", "display: none");
+            buttonElement.innerText = "view FBA return";
+            break;
+          case "lpn":
+            idntElement?.setAttribute("style", "display: none");
+            lpnElement?.setAttribute("style", "display: block");
+            buttonElement.innerText = "fetch LPN";
+            break;
+          default:
+            throw new Error("undefined");
+        }
+      }
+      function selectSerenityType() {
+        let ss = document.getElementById("serenity-type").value;
+        let pthfndElement = document.getElementById("serenity-pthfnd");
+        let nortnElement = document.getElementById("serenity-nortn");
+        let buttonElement = document.getElementById("serenity-btn");
+        switch (ss) {
+          case "pthfnd":
+            pthfndElement?.setAttribute("style", "display: block");
+            nortnElement?.setAttribute("style", "display: none");
+            buttonElement.innerText = "retrieve results";
+            break;
+          case "nortn":
+            pthfndElement?.setAttribute("style", "display: none");
+            nortnElement?.setAttribute("style", "display: block");
+            buttonElement.innerText = "view R2_REVERSAL_UNIT";
+            break;
+          default:
+            throw new Error("undefined");
+        }
+      }
+      function clearAllLedgerValues() {
+        let updateElements = (selector, action) => {
+          document.querySelectorAll(selector)?.forEach(action);
+        };
+        updateElements(
+          'input[id^="ledgerHas"]',
+          (element) => (element.checked = false)
+        );
+        updateElements('input[id^="ledgerContains"]', (element) => {
+          element.value = "";
+          element?.setAttribute("style", "display: none");
+        });
+        updateElements(
+          'input[id^="adj"]',
+          (element) => (element.checked = false)
+        );
+        let setValue = (id, value) => {
+          let element = document.getElementById(id);
+          if (element) element.value = value;
+        };
+        setValue("ledgerEvt", "");
+        setValue("ledgerDisp", "");
+        document
+          .querySelector(".adjSelection")
+          ?.setAttribute("style", "display: none");
+        setValue("ledgerTime", "1");
+      }
+      function onlyMeenIfEU() {
+        let region = new URLSearchParams(window.location.search)?.get("region");
+        if (region !== "eu") {
+          return;
+        }
+        sessionStorage.setItem("isMeen", "no");
+        let isMeen =
+          new URLSearchParams(window.location.search)?.get("isMeen") || "no";
+        let swToMeen = document.getElementById("swToMeen");
+        let swToEU = document.getElementById("swToEU");
+        let rgTitle = document.getElementById("rg-title");
+        if (!swToMeen || !swToEU || !rgTitle) {
+          throw new Error(
+            "required elements are missing: swToMeen, swToEU, or rgTitle."
+          );
+        }
+        sessionStorage.setItem("isMeen", isMeen);
+        if (isMeen == "no") {
+          swToMeen?.setAttribute("style", "display: inline-block");
+          swToEU?.setAttribute("style", "display: none");
+        } else if (isMeen == "yes") {
+          let agt = sessionStorage.getItem("type") || "agent";
+          swToMeen?.setAttribute("style", "display: none");
+          swToEU?.setAttribute("style", "display: inline-block");
+          document.title = `Paragon TOOLS v2 - MEEN (${agt?.toUpperCase()} MODE)`;
+          rgTitle.innerHTML = "MEEN";
+          disableNotMeen();
+        } else {
+          let queryParams = new URLSearchParams({
+            region: sessionStorage.getItem("region") || "na",
+            type: sessionStorage.getItem("type") || "agent",
+            theme: sessionStorage.getItem("theme") || "light",
+            isMeen: "no",
+          }).toString();
+          window.location.replace(`?${queryParams}`);
+        }
+      }
+      function disableNotMeen() {
+        let updateElements = (selector, displayStyle) => {
+          document.querySelectorAll(selector)?.forEach((element) => {
+            element?.setAttribute("style", `display: ${displayStyle}`);
+          });
+        };
+        updateElements("select[isMeen]", "block");
+        updateElements("select[isNotMeen]", "none");
+      }
+      function checkifEuMeen() {
+        let region = new URLSearchParams(window.location.search)?.get("region");
+        if (region == "eu") {
+          let isMeen =
+            new URLSearchParams(window.location.search)?.get("isMeen") || "no";
+          return `&isMeen=${isMeen}`;
+        } else {
+          return "";
+        }
+      }
+      function ifUsEuMeen() {
+        let region = new URLSearchParams(window.location.search)
+          ?.get("region")
+          ?.toUpperCase();
+        if (region == "NA") {
+          return region;
+        }
+        let euMeen = new URLSearchParams(window.location.search)?.get("isMeen");
+        return euMeen == "yes" ? "MEEN" : region;
+      }
+      function serenityHasFNSKU() {
+        let serenityHasFNSKUElement =
+          document.getElementById("serenityHasFNSKU");
+        let serenityFNSKUElement = document.getElementById("serenity-FNSKU");
+        if (!serenityHasFNSKUElement || !serenityFNSKUElement) {
+          throw new Error(
+            "required elements 'serenityHasFNSKU' or 'serenity-FNSKU' not found."
+          );
+        }
+        let displayStyle = serenityHasFNSKUElement.checked ? "block" : "none";
+        serenityFNSKUElement?.setAttribute("style", `display: ${displayStyle}`);
+      }
+      // COMPLEX CODES BELOW!!
+      function globalIdentifierCheck(idnt, type) {
+        // this function serves as the global entry point for ALL
+        // identifiers as inputs will be required moving forward.
+        let cIdnt; // only to be used for identifier cleanup
+        switch (type) {
+          case "CID": // Case ID
+          case "RMSID": // RMS ID
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "");
+            if (!!parseInt(cIdnt) && cIdnt.length == 11) {
+              return cIdnt;
+            } else {
+              throwAlert(type);
+              return;
+            }
+          case "MCID": // merchant ID
+          case "TRID": // transaction ID
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "");
+            if (!parseInt(cIdnt)) {
+              throwAlert(type);
+              return;
+            } else {
+              return cIdnt;
+            }
+          case "SOP": // SOP query
+          case "HELP": // Help Page query
+          case "SKU": // merchant SKU
+          case "ROID": // removal order ID
+            if (!idnt?.trim()) {
+              throwAlert(type);
+              return;
+            } else {
+              return encodeURIComponent(idnt);
+            }
+          case "AGT": // agent name
+          case "TIX": // INT/PTR tickets
+          case "TRKID": // tracking ID
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "");
+            if (!cIdnt) {
+              throwAlert(type);
+              return;
+            } else {
+              return cIdnt;
+            }
+          case "ASIN": // ASIN
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "")
+              ?.toUpperCase();
+            if (!!cIdnt && cIdnt.length == 10 && cIdnt?.startsWith("BO")) {
+              return cIdnt;
+            } else {
+              throwAlert(type);
+              return;
+            }
+          case "FNSKU": // FNSKU
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "")
+              ?.toUpperCase();
+            if (
+              !!cIdnt &&
+              cIdnt.length == 10 &&
+              (cIdnt?.startsWith("BO") || cIdnt?.startsWith("X0"))
+            ) {
+              return cIdnt;
+            } else {
+              throwAlert(type);
+              return;
+            }
+          case "COID": // customer order ID
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "")
+              ?.split("");
+            if (
+              !!cIdnt &&
+              cIdnt.length == 19 &&
+              cIdnt?.indexOf("-") == 3 &&
+              cIdnt?.indexOf("-", 4) == 11
+            ) {
+              return cIdnt.join("");
+            } else {
+              throwAlert(type);
+              return;
+            }
+          case "RMAID": // return merch auth ID
+            cIdnt = rmaSplit(
+              idnt
+                ?.replaceAll(" ", "")
+                ?.replaceAll(decodeURIComponent("%09"), ""),
+              3
+            );
+            cIdnt[3] = cIdnt[3]?.toUpperCase();
+            if (
+              !!cIdnt &&
+              cIdnt.join("").length == 12 &&
+              cIdnt.join("")?.endsWith("RMA")
+            ) {
+              return cIdnt.join("");
+            } else {
+              throwAlert(type);
+              return;
+            }
+            function rmaSplit(str, size) {
+              return str.match(new RegExp(`.{1,${size}}`, "g")) || [];
+            }
+          case "POID": // purchase order ID
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "")
+              ?.toUpperCase();
+            if (!!cIdnt && cIdnt.length == 12 && cIdnt?.startsWith("FBA")) {
+              return cIdnt;
+            } else {
+              throwAlert(type);
+              return;
+            }
+          case "FCID": // FC ID
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "")
+              ?.toUpperCase();
+            if (!!cIdnt && cIdnt.length == 4) {
+              return cIdnt;
+            } else {
+              throwAlert(type);
+              return;
+            }
+          case "VRET": // VRET ID
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "")
+              ?.toUpperCase();
+            if (!!cIdnt && cIdnt.length == 17 && cIdnt?.startsWith("VRET")) {
+              return cIdnt;
+            } else {
+              throwAlert(type);
+              return;
+            }
+          case "LPN": // LPN ID
+            cIdnt = idnt
+              ?.replaceAll(" ", "")
+              ?.replaceAll(decodeURIComponent("%09"), "")
+              ?.toUpperCase();
+            if (!!cIdnt && cIdnt.length == 14 && cIdnt?.startsWith("LPN")) {
+              return cIdnt;
+            } else {
+              throwAlert(type);
+              return;
+            }
+          default:
+            throw new Error("undefined");
+        }
+      }
+      function throwAlert(type) {
+        let typ,
+          str = "is required.";
+        switch (type) {
+          case "CID":
+            typ = "Case ID";
+            str = "must be a number and 11 characters long.";
+            break;
+          case "SOP":
+          case "HELP":
+            typ = "search query";
+            break;
+          case "AGT":
+            typ = "agent name";
+            break;
+          case "TIX":
+            typ = "ticket";
+            str = "cannot be empty.";
+            break;
+          case "MCID":
+            typ = "merchant ID";
+            str = "must be a number.";
+            break;
+          case "ASIN":
+            typ = type;
+            str = 'must be 10 characters long and starts with "B0".';
+            break;
+          case "SKU":
+            typ = type;
+            break;
+          case "FNSKU":
+            typ = type;
+            str =
+              'must be 10 characters long and starts with either "B0" or "X0".';
+            break;
+          case "COID":
+            typ = "customer order ID";
+            str =
+              "must be 19 characters long and in this format: XXX-XXXXXXX-XXXXXXX";
+            break;
+          case "RMAID":
+            typ = "RMA ID";
+            str = 'must be 12 characters long and ends with "RMA".';
+            break;
+          case "TRKID":
+            typ = "tracking ID";
+            break;
+          case "POID":
+            typ = "purchase order ID";
+            str = 'must be 12 characters long and starts with "FBA".';
+            break;
+          case "FCID":
+            typ = "FC ID";
+            str = "must be 4 characters long.";
+            break;
+          case "VRET":
+            typ = "VRET ID";
+            str = 'must be 17 characters long and starts with "VRET".';
+            break;
+          case "RMSID":
+            typ = "RMS ID";
+            str = "must be a number and 11 characters long.";
+            break;
+          case "LPN":
+            typ = "LPN ID";
+            str = 'must be 14 characters long and starts with "LPN".';
+            break;
+          case "TRID":
+            typ = "transaction ID";
+            str = "must be a number.";
+            break;
+          case "ROID":
+            typ = "removal order ID";
+            break;
+          default:
+            break;
+        }
+        alert(`${typ} ${str}`);
+        throw new Error(`${typ} ${str}`);
+      }
+      // genCase
+      function genCase(cat) {
+        switch (cat) {
+          case "paragonStart":
+            window.open(
+              `https://paragon-${sessionStorage.getItem("region")}.amazon.com`
+            );
+            return;
+          case "cid":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/hz/view-case?caseId=${globalIdentifierCheck(
+                document.getElementById("caseID").value,
+                "CID"
+              )}`
+            );
+            return;
+          case "sopSearch":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/hz/dox-search?searchQuery=${globalIdentifierCheck(
+                document.getElementById("sopSearch-value").value,
+                "SOP"
+              )}&contentType=SOP&filter=layer%3A${
+                document.getElementById(
+                  `sopSearch-mkt-${ifUsEuMeen(
+                    sessionStorage.getItem("region")
+                  )}`
+                ).value
+              }&filter=locale%3Aen-US`
+            );
+            return;
+          case "fclm":
+            window.open(
+              `https://fclm-portal.amazon.com/employee/activityDetails?employeeId=${globalIdentifierCheck(
+                document.getElementById("fclm").value,
+                "AGT"
+              )}`
+            );
+            return;
+          case "agentWIP":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/hz/dox-search?searchQuery=owner:${globalIdentifierCheck(
+                document.getElementById("agntWIP").value,
+                "AGT"
+              )}&contentType=CASE&filter=status%3Awork-in-progress`
+            );
+            return;
+          case "andonLaunch":
+            let siteAssign = prompt("enter your site:", "CPA");
+            if (!siteAssign) {
+              alert("please enter your site ID.");
+              throw new Error("please enter your site ID.");
+            } else {
+              window.open(
+                `https://paragon-${sessionStorage.getItem(
+                  "region"
+                )}.amazon.com/hz/paragon/andoncord/advisor-view?siteName=${siteAssign}`
+              );
+            }
+            return;
+          default:
+            throw new Error("undefined");
+        }
+      }
+      // tixCase
+      function tixCase(cat) {
+        switch (cat) {
+          case "quickLink":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/mn/paragon/diagnostic/show?resourcePath=RemedyQuicklink&region=${sessionStorage.getItem(
+                "region"
+              )}&quicklink_id=${globalIdentifierCheck(
+                document.getElementById("quickLink").value,
+                "TIX"
+              )}`
+            );
+            return;
+          case "tixLookup":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/mn/paragon/diagnostic/show?resourcePath=ViewTicket&region=${sessionStorage.getItem(
+                "region"
+              )}&ticket_id=${globalIdentifierCheck(
+                document.getElementById("tixLookup").value,
+                "TIX"
+              )}`
+            );
+            return;
+          default:
+            throw new Error("undefined");
+        }
+      }
+      // soaCase
+      function soaCase(cat) {
+        switch (cat) {
+          case "spotASIN":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/spot/tools#/asin_troubleshooting/asin_details;asin=${globalIdentifierCheck(
+                document.getElementById("spotASIN-ASIN").value,
+                "ASIN"
+              )};caseId=${globalIdentifierCheck(
+                document.getElementById("spotASIN-CID").value,
+                "CID"
+              )};marketplaceId=${
+                document.getElementById(
+                  `spotASIN-rgn-${ifUsEuMeen(sessionStorage.getItem("region"))}`
+                ).value
+              }`
+            );
+            return;
+          case "spotOID":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/spot/tools#/order_information;orderId=${globalIdentifierCheck(
+                document.getElementById("spotOID-COID").value,
+                "COID"
+              )};caseId=${globalIdentifierCheck(
+                document.getElementById("spotOID-CID").value,
+                "CID"
+              )};marketplaceId=${
+                document.getElementById(
+                  `spotASIN-rgn-${ifUsEuMeen(sessionStorage.getItem("region"))}`
+                ).value
+              }`
+            );
+            return;
+          case "srpdv":
+            window.open(
+              `https://csi.amazon.com/view?view=simple_product_data_view&item_id=${globalIdentifierCheck(
+                document.getElementById("srpdv-asin").value,
+                "ASIN"
+              )}&marketplace_id=${
+                document.getElementById(
+                  `srpdv-rgn-${ifUsEuMeen(sessionStorage.getItem("region"))}`
+                ).value
+              }&submit=Show`
+            );
+            return;
+          case "blameO":
+            window.open(
+              `https://csi.amazon.com/view?view=blame_o&item_id=${globalIdentifierCheck(
+                document.getElementById("blameO-ASIN").value,
+                "ASIN"
+              )}&marketplace_id=${
+                document.getElementById(
+                  `blameO-rgn-${ifUsEuMeen(sessionStorage.getItem("region"))}`
+                ).value
+              }&search_string=${blameO_attr(
+                document.getElementById("blameO-attr").value
+              )}&submit=Show`
+            );
+            function blameO_attr(attr) {
+              if (!attr) {
+                return "";
+              } else {
+                return attr;
+              }
+            }
+            return;
+          case "showGate":
+            window.open(
+              `https://csi.amazon.com/view?view=get_gating_decisions_view&item_id=${globalIdentifierCheck(
+                document.getElementById("showGate-ASIN").value,
+                "ASIN"
+              )}&marketplace_id=${
+                document.getElementById(
+                  `showGate-rgn-${ifUsEuMeen(sessionStorage.getItem("region"))}`
+                ).value
+              }&customer_id=${globalIdentifierCheck(
+                document.getElementById("showGate-MCID").value,
+                "MCID"
+              )}&listing_type=purchasable&submit=Show`
+            );
+            return;
+          case "submHist":
+            window.open(
+              `https://csi.amazon.com/view?view=submission_history&customer_id=${globalIdentifierCheck(
+                document.getElementById("submHist-MCID").value,
+                "MCID"
+              )}&marketplace_id=${
+                document.getElementById(
+                  `submHist-rgn-${ifUsEuMeen(sessionStorage.getItem("region"))}`
+                ).value
+              }&sku=${globalIdentifierCheck(
+                document.getElementById("submHist-SKU").value,
+                "SKU"
+              )}&submit=Show`
+            );
+            return;
+          case "globalsel":
+            let rgnUPC = sessionStorage.getItem("region");
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/mn/paragon/diagnostic/show?resourcePath=GlobalSellingSupportPreferences&region=${rgnUPC?.toUpperCase()}&merchant_id=${globalIdentifierCheck(
+                document.getElementById("globalsel").value,
+                "MCID"
+              )}`
+            );
+          default:
+            throw new Error("undefined");
+        }
+      }
+      // fbaCase
+      function fbaCase(cat) {
+        switch (cat) {
+          case "ilac":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/ilac/view-ilac-report?shipmentId=${globalIdentifierCheck(
+                document.getElementById("ilac").value,
+                "POID"
+              )}`
+            );
+            return;
+          case "hitchLook":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/ilac/fnsku-lookup?fnsku=${globalIdentifierCheck(
+                document.getElementById("hitchLook").value,
+                "FNSKU"
+              )}`
+            );
+            return;
+          case "PIM":
+            let rgnUPC = sessionStorage.getItem("region");
+            window.open(
+              `https://prepmanager-${sessionStorage.getItem(
+                "intWebType"
+              )}.amazon.com/view/${globalIdentifierCheck(
+                document.getElementById("PIM").value,
+                "ASIN"
+              )}?region=${rgnUPC?.toUpperCase()}`
+            );
+            return;
+          case "REV":
+            window.open(
+              `https://rev-${sessionStorage.getItem(
+                "intWebType"
+              )}.aka.amazon.com/RemovalsExecutionViewer/orderDetails?fc=${globalIdentifierCheck(
+                document.getElementById("REV-FC").value,
+                "FCID"
+              )}&search=${globalIdentifierCheck(
+                document.getElementById("REV-VRET").value,
+                "VRET"
+              )}`
+            );
+            return;
+          case "rmsLookup":
+            window.open(
+              `https://console-${sessionStorage.getItem(
+                "region"
+              )}.seller-reimbursement.amazon.dev/rms/view/transaction/${globalIdentifierCheck(
+                document.getElementById("rmsLookup").value,
+                "RMSID"
+              )}`
+            );
+            return;
+          case "MYIQT":
+            window.open(
+              `https://fba-swivt-inventory-console-${sessionStorage.getItem(
+                "region"
+              )}-${sessionStorage.getItem(
+                "intWebType"
+              )}.${sessionStorage.getItem(
+                "intWebType"
+              )}.proxy.amazon.com/MYITroubleShooter/input?fnsku=${globalIdentifierCheck(
+                document.getElementById("MYIQT-fnsku").value,
+                "FNSKU"
+              )}&merchantCustomerId=${globalIdentifierCheck(
+                document.getElementById("MYIQT-mcid").value,
+                "MCID"
+              )}&marketplaceId=${
+                document.getElementById(
+                  `MYIQT-rgn-${ifUsEuMeen(sessionStorage.getItem("region"))}`
+                ).value
+              }`
+            );
+            return;
+          case "SWIVT":
+            let swi_fnsku = globalIdentifierCheck(
+                document.getElementById("SWIVT-fnsku").value,
+                "FNSKU"
+              ),
+              swi_mcid = globalIdentifierCheck(
+                document.getElementById("SWIVT-mcid").value,
+                "MCID"
+              ),
+              baseUrl = `https://fba-swivt-inventory-console-${sessionStorage.getItem(
+                "region"
+              )}-${sessionStorage.getItem(
+                "intWebType"
+              )}.${sessionStorage.getItem(
+                "intWebType"
+              )}.proxy.amazon.com/Reconciliation/input`;
+            alert(
+              "please note that this tool will be generating the link first before presenting the link to you. upon clicking OK, please wait 5 seconds for the request to be processed.\n\nyou may close the previous tab once the request has been opened (and reload as needed when results fail to generate)."
+            );
+            window.open(
+              `${baseUrl}?fnsku=${swi_fnsku}&merchantCustomerId=${swi_mcid}&requestId=`
+            );
+            setTimeout(() => {
+              window.open(
+                `${baseUrl}?fnsku=&merchantCustomerId=&requestId=amzn1.fba.reconciliationReport.${swi_mcid}.${swi_fnsku}`
+              );
+            }, 5000);
+            return;
+          case "sidMatch":
+            window.open(
+              `https://paragon-${sessionStorage.getItem(
+                "region"
+              )}.amazon.com/hz/dox-search?searchQuery=merchantId:${globalIdentifierCheck(
+                document.getElementById("sidMatch-MCID").value,
+                "MCID"
+              )}%20AND%20${globalIdentifierCheck(
+                document.getElementById("sidMatch-POID").value,
+                "POID"
+              )}`
+            );
+            return;
+          case "FCR":
+            window.open(
+              `https://fcresearch-${sessionStorage.getItem(
+                "region"
+              )}.aka.amazon.com/${globalIdentifierCheck(
+                document.getElementById("FCR-FC").value,
+                "FCID"
+              )}/results?s=${globalIdentifierCheck(
+                document.getElementById("FCR-fnskuLPN").value,
+                document.getElementById("FCR-TYPE").value
+              )}`
+            );
+            return;
+          case "GRAVIS":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "region"
+              )}-cretfc-tools-${sessionStorage.getItem(
+                "intWebType"
+              )}.${sessionStorage.getItem(
+                "intWebType"
+              )}.proxy.amazon.com/gravis/${
+                document.getElementById("GRAVIS-TYPE").value
+              }/${globalIdentifierCheck(
+                document.getElementById("GRAVIS-idnt").value,
+                GRAVIS_whatType(document.getElementById("GRAVIS-TYPE").value)
+              )}`
+            );
+            function GRAVIS_whatType(type) {
+              switch (type) {
+                case "returnPackage":
+                  return "COID";
+                case "returnUnit":
+                  return "LPN";
+                default:
+                  throw new Error("undefined");
+              }
+            }
+            return;
+          case "serenity":
+            window.open(
+              `https://moonraker-${sessionStorage.getItem(
+                "region"
+              )}.aka.amazon.com/serenity/index.html?view=search&FulfillmentNetworkSKU=${serenityHaveFNSKU()}${serenityOIDorTRID()}`
+            );
+            function serenityHaveFNSKU() {
+              if (document.getElementById("serenityHasFNSKU").checked) {
+                return globalIdentifierCheck(
+                  document.getElementById("serenity-FNSKU").value,
+                  "FNSKU"
+                );
+              } else {
+                return "";
+              }
+            }
+            function serenityOIDorTRID() {
+              switch (document.getElementById("serenity-type").value) {
+                case "pthfnd":
+                  return `&SourceTransactionReferenceID=${globalIdentifierCheck(
+                    document.getElementById("serenity-trid").value,
+                    "TRID"
+                  )}`;
+                case "nortn":
+                  return `&OrderID=${globalIdentifierCheck(
+                    document.getElementById("serenity-coid").value,
+                    "COID"
+                  )}`;
+                default:
+                  throw new Error("undefined");
+              }
+            }
+            return;
+          default:
+            throw new Error("undefined");
+        }
+      }
+      // scCase
+      function scCase(cat) {
+        switch (cat) {
+          case "MYI":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/myinventory/inventory?fulfilledBy=all&page=1&pageSize=25&searchField=${document
+                .getElementById("MYI-type")
+                .value?.toLowerCase()}&searchTerm=${globalIdentifierCheck(
+                document.getElementById("MYI-idnt").value,
+                document.getElementById("MYI-type").value
+              )}`
+            );
+            return;
+          case "FYP":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/fixyourproducts?${document
+                .getElementById("FYP-type")
+                .value?.toLowerCase()}=${globalIdentifierCheck(
+                document.getElementById("FYP-idnt").value,
+                document.getElementById("FYP-type").value
+              )}`
+            );
+            return;
+          case "FSI":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/inventoryplanning/stranded-inventory?search=${globalIdentifierCheck(
+                document.getElementById("FSI-idnt").value,
+                document.getElementById("FSI-type").value
+              )}`
+            );
+            return;
+          case "mngOrd":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/orders-v3/order/${globalIdentifierCheck(
+                document.getElementById("mngOrd").value,
+                "COID"
+              )}`
+            );
+            return;
+          case "mngRet":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/gp/returns/list/v2?searchBy=${
+                document.getElementById("mngRet-type").value
+              }&searchString=${globalIdentifierCheck(
+                document.getElementById("mngRet-idnt").value,
+                MNGRET_isType(document.getElementById("mngRet-type").value)
+              )}`
+            );
+            function MNGRET_isType(type) {
+              switch (type) {
+                case "OrderId":
+                  return "COID";
+                case "RmaId":
+                case "Asin":
+                  return type.toUpperCase();
+                case "CarrierTrackingId":
+                  return "TRKID";
+                default:
+                  throw new Error(undefined);
+              }
+            }
+            return;
+          case "rmsRep":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/reportcentral/REIMBURSEMENTS/0/` +
+                encodeURI(
+                  `{"filters":["","","${globalIdentifierCheck(
+                    document.getElementById("rmsRep-rms").value,
+                    "RMSID"
+                  )}",""],"pageOffset":1,"searchDays":365}`
+                )
+            );
+            return;
+          case "cxShipSales":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/reportcentral/SHIPMENT_SALES/0/` +
+                encodeURI(
+                  `{"filters":[${cxShipIDNT()}],"pageOffset":1,"searchDays":${
+                    document.getElementById("cxShipSales-time").value
+                  }}`
+                )
+            );
+            function cxShipIDNT() {
+              let idnt = document.getElementById("cxShipSales-idnt").value,
+                type = document.getElementById("cxShipSales-type").value;
+              if (!idnt) {
+                let cxShipConf =
+                  "this will return all identifiers for this report. are your sure?";
+                if (!confirm(cxShipConf)) {
+                  alert("ASIN, FNSKU, or COID is required.");
+                  throw new Error("ASIN, FNSKU, or COID is required.");
+                } else {
+                  return `"","",""`;
+                }
+              } else {
+                // "ASIN","FNSKU","COID"
+                return `"${CXSHIP_checkIDNT("ASIN")}","${CXSHIP_checkIDNT(
+                  "FNSKU"
+                )}","${CXSHIP_checkIDNT("COID")}"`;
+                function CXSHIP_checkIDNT(type) {
+                  if (
+                    document.getElementById("cxShipSales-type").value == type
+                  ) {
+                    return globalIdentifierCheck(
+                      document.getElementById("cxShipSales-idnt").value,
+                      type
+                    );
+                  } else {
+                    return "";
+                  }
+                }
+              }
+            }
+            return;
+          case "ROid":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/recoveryui/removal-order/detail?sourceRemovalOrderId=${globalIdentifierCheck(
+                document.getElementById("ROid").value,
+                "ROID"
+              )}`
+            );
+            return;
+          case "fbaCustRet":
+            switch (document.getElementById("fbaCustRet-type").value) {
+              // syntax:
+              // https://sellercentral.amazon.com/reportcentral/CUSTOMER_RETURNS/0/{"filters":["SKU","COID","FNSKU","ASIN",""],"pageOffset":1,"searchDays":1}
+              case "idnt":
+                window.open(
+                  `https://${sessionStorage.getItem(
+                    "scWeb"
+                  )}.amazon.com/reportcentral/CUSTOMER_RETURNS/0/` +
+                    encodeURI(
+                      `{"filters":["${CUSTRET_checkIDNT(
+                        "SKU"
+                      )}","${CUSTRET_checkIDNT("COID")}","${CUSTRET_checkIDNT(
+                        "FNSKU"
+                      )}","${CUSTRET_checkIDNT(
+                        "ASIN"
+                      )}",""],"pageOffset":1,"searchDays":365}`
+                    )
+                );
+                function CUSTRET_checkIDNT(type) {
+                  if (
+                    document.getElementById("fbaCustRet-idntTYP").value == type
+                  ) {
+                    return globalIdentifierCheck(
+                      document.getElementById("fbaCustRet-idntINP").value,
+                      type
+                    );
+                  } else {
+                    return "";
+                  }
+                }
+                return;
+              case "lpn":
+                window.open(
+                  `https://${sessionStorage.getItem(
+                    "scWeb"
+                  )}.amazon.com/reportcentral/CUSTOMER_RETURNS/0/` +
+                    encodeURI(
+                      `{"filters":["","","","","${globalIdentifierCheck(
+                        document.getElementById("fbaCustRet-lpnINP").value,
+                        "LPN"
+                      )}"],"pageOffset":1,"searchDays":365}`
+                    )
+                );
+                return;
+              default:
+                throw new Error("undefined");
+            }
+          case "shipm":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/fba/inbound-shipment/summary/${globalIdentifierCheck(
+                document.getElementById("shipm").value,
+                "POID"
+              )}`
+            );
+            return;
+          case "ledger":
+            let filters = [
+              LEDGER_hasIDNT(),
+              '"DAILY"',
+              '"FC"',
+              '"84700"',
+              LEDGER_hasTRID(
+                document.getElementById("ledgerContainsTRID").value
+              ),
+              `"${document.getElementById("ledgerEvt").value}"`,
+              LEDGER_isAdjSel(),
+              LEDGER_hasFCID(document.getElementById("ledgerContainsFC").value),
+              `"${document.getElementById("ledgerDisp").value}"`,
+            ];
+            let searchDays = document.getElementById("ledgerTime").value;
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/reportcentral/LEDGER_REPORT/0/` +
+                encodeURI(
+                  `{"filters":[${filters.join(
+                    ","
+                  )}],"pageOffset":1,"searchDays":${searchDays}}`
+                )
+            );
+            function LEDGER_hasIDNT() {
+              if (
+                !document.getElementById("ledgerHasASIN").checked &&
+                !document.getElementById("ledgerHasSKU").checked &&
+                !document.getElementById("ledgerHasFNSKU").checked
+              ) {
+                let confirmIdnt =
+                  "this will return all identifiers for this report. are your sure?";
+                if (!confirm(confirmIdnt)) {
+                  alert("ASIN, SKU, or FNSKU is required.");
+                  throw new Error("ASIN, SKU, or FNSKU is required.");
+                } else {
+                  return `"","",""`;
+                }
+              } else {
+                return `"${LEDGER_checkIDNT("ASIN")}","${LEDGER_checkIDNT(
+                  "SKU"
+                )}","${LEDGER_checkIDNT("FNSKU")}"`;
+                function LEDGER_checkIDNT(idnt) {
+                  if (document.getElementById(`ledgerHas${idnt}`).checked) {
+                    return globalIdentifierCheck(
+                      document.getElementById(`ledgerContains${idnt}`).value,
+                      idnt
+                    );
+                  } else {
+                    return "";
+                  }
+                }
+              }
+            }
+            function LEDGER_isAdjSel() {
+              if (document.getElementById("ledgerEvt").value == "Adjustments") {
+                if (
+                  !document.getElementById("adjDamaged").checked &&
+                  !document.getElementById("adjDestroyed").checked &&
+                  !document.getElementById("adjFound").checked &&
+                  !document.getElementById("adjLost").checked &&
+                  !document.getElementById("adjOther").checked
+                ) {
+                  alert("please select at least one adjustment reason group.");
+                  throw new Error(
+                    "please select at least one adjustment reason group."
+                  );
+                } else {
+                  let adjVars = new Array();
+                  if (document.getElementById("adjDamaged").checked) {
+                    adjVars.push('"Damaged"');
+                  }
+                  if (document.getElementById("adjDestroyed").checked) {
+                    adjVars.push('"Destroyed"');
+                  }
+                  if (document.getElementById("adjFound").checked) {
+                    adjVars.push('"Found"');
+                  }
+                  if (document.getElementById("adjLost").checked) {
+                    adjVars.push('"Lost"');
+                  }
+                  if (document.getElementById("adjOther").checked) {
+                    adjVars.push('"Other"');
+                  }
+                  return "[" + adjVars.toString() + "]";
+                }
+              } else {
+                return '""';
+              }
+            }
+            function LEDGER_hasTRID(trid) {
+              if (!document.getElementById("ledgerHasTRID").checked) {
+                return '""';
+              } else {
+                return globalIdentifierCheck(trid, "TRID");
+              }
+            }
+            function LEDGER_hasFCID(fcid) {
+              if (!document.getElementById("ledgerHasFC").checked) {
+                return '""';
+              } else {
+                return globalIdentifierCheck(fcid, "FCID");
+              }
+            }
+            return;
+          case "helpRes":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/${helpPageOrSellerUni()}${globalIdentifierCheck(
+                document.getElementById("helpRes-query").value,
+                "HELP"
+              )}`
+            );
+            function helpPageOrSellerUni() {
+              switch (document.getElementById("helpRes-type").value) {
+                case "helpPage":
+                  return "help/hub/reference/search?query=";
+                case "sellerUni":
+                  return "learn/s?searchText=";
+                default:
+                  throw new Error("undefined");
+              }
+            }
+            return;
+          default:
+            throw new Error("undefined");
+        }
+      }
+    </script>
   </head>
-  <body>
-    <p>test text</p>
+  <body onload="init()">
+    <svg
+      id="darkTheme"
+      class="changeTheme-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      height="24px"
+      viewBox="0 -960 960 960"
+      width="24px"
+      fill="#fff"
+    >
+      <path
+        d="M480-360q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35Zm0 80q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Zm326-268Z"
+      ></path>
+    </svg>
+    <svg
+      id="lightTheme"
+      class="changeTheme-icon"
+      xmlns="http://www.w3.org/2000/svg"
+      height="24px"
+      viewBox="0 -960 960 960"
+      width="24px"
+      fill="#000"
+    >
+      <path
+        d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Zm0-80q88 0 158-48.5T740-375q-20 5-40 8t-40 3q-123 0-209.5-86.5T364-660q0-20 3-40t8-40q-78 32-126.5 102T200-480q0 116 82 198t198 82Zm-10-270Z"
+      ></path>
+    </svg>
+    <button
+      inverse="EU"
+      class="prgFAB btn-NA"
+      title="change to NA"
+      onclick="window.location.replace('?region=na&type=' + sessionStorage.getItem('type') + '&theme=' + sessionStorage.getItem('theme'))"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill="#fff"
+      >
+        <path
+          d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm-40-82v-78q-33 0-56.5-23.5T360-320v-40L168-552q-3 18-5.5 36t-2.5 36q0 121 79.5 212T440-162Zm276-102q41-45 62.5-100.5T800-480q0-98-54.5-179T600-776v16q0 33-23.5 56.5T520-680h-80v80q0 17-11.5 28.5T400-560h-80v80h240q17 0 28.5 11.5T600-440v120h40q26 0 47 15.5t29 40.5Z"
+        ></path>
+      </svg>
+    </button>
+    <button
+      inverse="NA"
+      class="prgFAB btn-EU"
+      title="change to EU"
+      onclick="window.location.replace('?region=eu&type=' + sessionStorage.getItem('type') + '&theme=' + sessionStorage.getItem('theme'))"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        fill="#fff"
+      >
+        <path
+          d="M480-160q18 0 34.5-2t33.5-6l-48-72H360v-40q0-33 23.5-56.5T440-360h80v-120h-80q-17 0-28.5-11.5T400-520v-80h-18q-26 0-44-17.5T320-661q0-9 2.5-18t7.5-17l62-91q-101 29-166.5 113T160-480h40v-40q0-17 11.5-28.5T240-560h80q17 0 28.5 11.5T360-520v40q0 17-11.5 28.5T320-440v40q0 33-23.5 56.5T240-320h-37q42 72 115 116t162 44Zm304-222q8-23 12-47.5t4-50.5q0-112-68-197.5T560-790v110q33 0 56.5 23.5T640-600v80q19 0 34 4.5t29 18.5l81 115ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"
+        ></path>
+      </svg>
+    </button>
+    <br />
+    <div class="toolsTitle">
+      <h1>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          xmlns:xlink="http://www.w3.org/1999/xlink"
+          width="24px"
+          height="24px"
+          viewBox="0 0 24 24"
+          version="1.1"
+        >
+          <g id="surface1">
+            <path
+              style="
+                stroke: none;
+                fill-rule: evenodd;
+                fill: rgb(94.509804%, 35.294119%, 14.117648%);
+                fill-opacity: 1;
+              "
+              d="M 8.886719 0 L 15.644531 3.90625 L 8.558594 7.964844 L 8.542969 7.957031 L 8.542969 15.164062 L 1.632812 11.1875 L 1.632812 4.195312 Z M 8.886719 0"
+            ></path>
+            <path
+              style="
+                stroke: none;
+                fill-rule: evenodd;
+                fill: rgb(0%, 44.313726%, 73.725492%);
+                fill-opacity: 1;
+              "
+              d="M 16.3125 4.324219 L 22.367188 7.8125 L 22.367188 16.179688 L 15.429688 20.175781 L 15.449219 11.96875 L 15.453125 11.964844 L 15.449219 11.964844 L 15.402344 11.9375 L 9.234375 8.382812 Z M 16.3125 4.324219"
+            ></path>
+            <path
+              style="
+                stroke: none;
+                fill-rule: evenodd;
+                fill: rgb(69.803923%, 76.47059%, 0.392157%);
+                fill-opacity: 1;
+              "
+              d="M 1.632812 11.96875 L 8.539062 15.96875 L 9.238281 15.5625 L 14.765625 12.359375 L 14.765625 20.597656 L 8.890625 24 L 1.632812 19.796875 Z M 1.632812 11.96875"
+            ></path>
+          </g>
+        </svg>
+        Paragon TOOLS v2 - <span id="rg-title"></span>
+      </h1>
+      <div id="ifEuMeenBlk">
+        <button
+          ifEU
+          id="swToMeen"
+          onclick="window.location.replace('?region=eu&type=' + sessionStorage.getItem('type') + '&theme=' + sessionStorage.getItem('theme') + '&isMeen=yes')"
+        >
+          switch to MEEN
+        </button>
+        <button
+          ifEU
+          id="swToEU"
+          onclick="window.location.replace('?region=eu&type=' + sessionStorage.getItem('type') + '&theme=' + sessionStorage.getItem('theme') + '&isMeen=no')"
+        >
+          switch to EU
+        </button>
+      </div>
+      <br />
+      <div>
+        <p>Select your LOB:</p>
+        <div class="lobSelectors">
+          <div><input type="checkbox" id="check-M@" /><span>M@</span></div>
+          <div>
+            <input
+              type="checkbox"
+              id="check-FBA"
+              onclick="enableTools('FBA')"
+            /><span>FBA</span>
+          </div>
+          <div isFBA>
+            <input
+              type="checkbox"
+              id="check-FFT"
+              onclick="enableTools('FFT')"
+            /><span>FFT</span>
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              id="check-IIDP"
+              onclick="enableTools('IIDP')"
+            /><span>IIDP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="collapsibleHead">
+      <div>
+        <!-- collapsible head - genCase -->
+        <h2>General Management</h2>
+        <button
+          id="dropDwn"
+          class="btn-genCase"
+          title="expand"
+          onclick="expp('genCase')"
+        >
+          <svg
+            id="arrw-genCase"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#fff"
+          >
+            <path d="M480-360 280-560h400L480-360Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="genCase toolRows">
+      <!-- genCase -->
+      <div class="SMEonly toolCol">
+        <div>
+          <!-- Launch Paragon Lobby -->
+          <h2>Launch Paragon Lobby</h2>
+          <br />
+          <button onclick="genCase('paragonStart')">start</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Paragon CASE -->
+          <h2>Paragon CASE</h2>
+          <br />
+          <input type="text" id="caseID" placeholder="Case ID" />
+          <button onclick="genCase('cid')">view case</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- SOP Lookup -->
+          <h2>SOP Lookup</h2>
+          <br />
+          <input type="text" id="sopSearch-value" placeholder="search query" />
+          <select id="sopSearch-mkt-NA" class="btn-EU">
+            <option value="US">US</option>
+            <option value="CA">CA</option>
+            <option value="BR">BR</option>
+            <option value="MX">MX</option>
+          </select>
+          <select isNotMeen id="sopSearch-mkt-EU" class="btn-NA">
+            <option value="GB">GB</option>
+            <option value="DE">DE</option>
+            <option value="ES">ES</option>
+            <option value="FR">FR</option>
+            <option value="IT">IT</option>
+            <option value="NL">NL</option>
+            <option value="PL">PL</option>
+            <option value="SE">SE</option>
+            <option value="TR">TR</option>
+            <option value="IE">IE</option>
+          </select>
+          <select isMeen id="sopSearch-mkt-MEEN" class="btn-NA">
+            <option value="AE">AE</option>
+            <option value="SA">SA</option>
+            <option value="EG">EG</option>
+          </select>
+          <button onclick="genCase('sopSearch')">search</button>
+        </div>
+      </div>
+      <div FBA class="toolCol">
+        <div>
+          <!-- FCLM -->
+          <h2>FCLM</h2>
+          <br />
+          <input type="text" id="fclm" placeholder="username" />
+          <button onclick="genCase('fclm')">fetch employee details</button>
+        </div>
+      </div>
+      <div class="SMEonly toolCol">
+        <div>
+          <!-- View Agent's WIP Case -->
+          <h2>View Agent's WIP Case</h2>
+          <br />
+          <input type="text" id="agntWIP" placeholder="agent name" />
+          <button onclick="genCase('agentWIP')">
+            see Work-in-Progress case/s
+          </button>
+        </div>
+      </div>
+      <div class="SMEonly toolCol">
+        <div>
+          <!-- Andon Launcher -->
+          <h2>Andon Launcher</h2>
+          <br />
+          <button onclick="genCase('andonLaunch')">
+            launch Andon (SME/CSM)
+          </button>
+        </div>
+      </div>
+      <!-- <div class="toolCol"><div>
+</div></div> -->
+    </div>
+    <div divider></div>
+    <div class="collapsibleHead">
+      <div>
+        <!-- collapsible head - tixCase -->
+        <h2>Remedy Tickets</h2>
+        <button
+          id="dropDwn"
+          class="btn-tixCase"
+          title="expand"
+          onclick="expp('tixCase')"
+        >
+          <svg
+            id="arrw-tixCase"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#fff"
+          >
+            <path d="M480-360 280-560h400L480-360Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="tixCase toolRows">
+      <!-- tixCase -->
+      <div class="toolCol">
+        <div>
+          <!-- Remedy Quicklink -->
+          <h2>Remedy Quicklink</h2>
+          <br />
+          <input type="text" id="quickLink" placeholder="GUID / INT ID" />
+          <button onclick="tixCase('quickLink')">launch quicklink</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Ticket Lookup -->
+          <h2>Ticket Lookup</h2>
+          <br />
+          <input type="text" id="tixLookup" placeholder="GUID / INT ID" />
+          <button onclick="tixCase('tixLookup')">view ticket</button>
+        </div>
+      </div>
+    </div>
+    <div divider></div>
+    <div class="collapsibleHead">
+      <div>
+        <!-- collapsible head - soaCase -->
+        <h2>Selling on Amazon</h2>
+        <button
+          id="dropDwn"
+          class="btn-soaCase"
+          title="expand"
+          onclick="expp('soaCase')"
+        >
+          <svg
+            id="arrw-soaCase"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#fff"
+          >
+            <path d="M480-360 280-560h400L480-360Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="soaCase toolRows">
+      <!-- soaCase -->
+      <div class="toolCol">
+        <div>
+          <!-- SPOT: ASIN Troubleshooting -->
+          <h2>SPOT: ASIN Troubleshooting</h2>
+          <br />
+          <input type="text" id="spotASIN-ASIN" placeholder="ASIN" />
+          <input type="text" id="spotASIN-CID" placeholder="Case ID" />
+          <select id="spotASIN-rgn-NA" class="btn-EU">
+            <option value="1">US</option>
+            <option value="7">CA</option>
+            <option value="771770">BR</option>
+            <option value="526970">MX</option>
+          </select>
+          <select isNotMeen id="spotASIN-rgn-EU" class="btn-NA">
+            <option value="3">GB</option>
+            <option value="4">DE</option>
+            <option value="44551">ES</option>
+            <option value="5">FR</option>
+            <option value="35691">IT</option>
+            <option value="328451">NL</option>
+            <option value="712115121">PL</option>
+            <option value="704403121">SE</option>
+            <option value="338851">TR</option>
+            <option value="753556201">IE</option>
+          </select>
+          <select isMeen id="spotASIN-rgn-MEEN" class="btn-NA">
+            <option value="338801">AE</option>
+            <option value="338811">SA</option>
+            <option value="623225021">EG</option>
+          </select>
+          <button onclick="soaCase('spotASIN')">view ASIN</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- SPOT: Orders Tool -->
+          <h2>SPOT: Orders Tool</h2>
+          <br />
+          <input
+            type="text"
+            id="spotOID-COID"
+            placeholder="Customer Order ID"
+          />
+          <input type="text" id="spotOID-CID" placeholder="Case ID" />
+          <select id="spotOID-rgn-NA" class="btn-EU">
+            <option value="1">US</option>
+            <option value="7">CA</option>
+            <option value="771770">BR</option>
+            <option value="526970">MX</option>
+          </select>
+          <select isNotMeen id="spotOID-rgn-EU" class="btn-NA">
+            <option value="3">GB</option>
+            <option value="4">DE</option>
+            <option value="44551">ES</option>
+            <option value="5">FR</option>
+            <option value="35691">IT</option>
+            <option value="328451">NL</option>
+            <option value="712115121">PL</option>
+            <option value="704403121">SE</option>
+            <option value="338851">TR</option>
+            <option value="753556201">IE</option>
+          </select>
+          <select isMeen id="spotOID-rgn-MEEN" class="btn-NA">
+            <option value="338801">AE</option>
+            <option value="338811">SA</option>
+            <option value="623225021">EG</option>
+          </select>
+          <button onclick="soaCase('spotOID')">view order</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Simple Reconciled Product Data View -->
+          <h2>Simple Reconciled Product Data View</h2>
+          <br />
+          <input type="text" id="srpdv-asin" placeholder="ASIN" />
+          <select id="srpdv-rgn-NA" class="btn-EU">
+            <option value="1">US</option>
+            <option value="7">CA</option>
+            <option value="771770">BR</option>
+            <option value="526970">MX</option>
+          </select>
+          <select isNotMeen id="srpdv-rgn-EU" class="btn-NA">
+            <option value="3">GB</option>
+            <option value="4">DE</option>
+            <option value="44551">ES</option>
+            <option value="5">FR</option>
+            <option value="35691">IT</option>
+            <option value="328451">NL</option>
+            <option value="712115121">PL</option>
+            <option value="704403121">SE</option>
+            <option value="338851">TR</option>
+            <option value="753556201">IE</option>
+          </select>
+          <select isMeen id="srpdv-rgn-MEEN" class="btn-NA">
+            <option value="338801">AE</option>
+            <option value="338811">SA</option>
+            <option value="623225021">EG</option>
+          </select>
+          <button onclick="soaCase('srpdv')">view ASIN (CSI)</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Blame-O -->
+          <h2>Blame-O</h2>
+          <br />
+          <input type="text" id="blameO-ASIN" placeholder="ASIN" />
+          <input type="text" id="blameO-attr" placeholder="attribute" />
+          <select id="blameO-rgn-NA" class="btn-EU">
+            <option value="1">US</option>
+            <option value="7">CA</option>
+            <option value="771770">BR</option>
+            <option value="526970">MX</option>
+          </select>
+          <select isNotMeen id="blameO-rgn-EU" class="btn-NA">
+            <option value="3">GB</option>
+            <option value="4">DE</option>
+            <option value="44551">ES</option>
+            <option value="5">FR</option>
+            <option value="35691">IT</option>
+            <option value="328451">NL</option>
+            <option value="712115121">PL</option>
+            <option value="704403121">SE</option>
+            <option value="338851">TR</option>
+            <option value="753556201">IE</option>
+          </select>
+          <select isMeen id="blameO-rgn-MEEN" class="btn-NA">
+            <option value="338801">AE</option>
+            <option value="338811">SA</option>
+            <option value="623225021">EG</option>
+          </select>
+          <button onclick="soaCase('blameO')">show attribute (CSI)</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Show Gating Decisions -->
+          <h2>Show Gating Decisions</h2>
+          <br />
+          <input type="text" id="showGate-ASIN" placeholder="ASIN" />
+          <input type="text" id="showGate-MCID" placeholder="MCID" />
+          <select id="showGate-rgn-NA" class="btn-EU">
+            <option value="1">US</option>
+            <option value="7">CA</option>
+            <option value="771770">BR</option>
+            <option value="526970">MX</option>
+          </select>
+          <select isNotMeen id="showGate-rgn-EU" class="btn-NA">
+            <option value="3">GB</option>
+            <option value="4">DE</option>
+            <option value="44551">ES</option>
+            <option value="5">FR</option>
+            <option value="35691">IT</option>
+            <option value="328451">NL</option>
+            <option value="712115121">PL</option>
+            <option value="704403121">SE</option>
+            <option value="338851">TR</option>
+            <option value="753556201">IE</option>
+          </select>
+          <select isMeen id="showGate-rgn-MEEN" class="btn-NA">
+            <option value="338801">AE</option>
+            <option value="338811">SA</option>
+            <option value="623225021">EG</option>
+          </select>
+          <button onclick="soaCase('showGate')">
+            is the ASIN gated? (CSI)
+          </button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Submission History -->
+          <h2>Submission History</h2>
+          <br />
+          <input type="text" id="submHist-MCID" placeholder="MCID" />
+          <input type="text" id="submHist-SKU" placeholder="SKU" />
+          <select id="submHist-rgn-NA" class="btn-EU">
+            <option value="1">US</option>
+            <option value="7">CA</option>
+            <option value="771770">BR</option>
+            <option value="526970">MX</option>
+          </select>
+          <select isNotMeen id="submHist-rgn-EU" class="btn-NA">
+            <option value="3">GB</option>
+            <option value="4">DE</option>
+            <option value="44551">ES</option>
+            <option value="5">FR</option>
+            <option value="35691">IT</option>
+            <option value="328451">NL</option>
+            <option value="712115121">PL</option>
+            <option value="704403121">SE</option>
+            <option value="338851">TR</option>
+            <option value="753556201">IE</option>
+          </select>
+          <select isMeen id="submHist-rgn-MEEN" class="btn-NA">
+            <option value="338801">AE</option>
+            <option value="338811">SA</option>
+            <option value="623225021">EG</option>
+          </select>
+          <button onclick="soaCase('submHist')">
+            show merchant submissions (CSI)
+          </button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Global Selling Support Preferences -->
+          <h2>Global Selling Support Preferences</h2>
+          <br />
+          <input type="text" id="globalsel" placeholder="MCID" />
+          <button onclick="soaCase('globalsel')">determine COO</button>
+        </div>
+      </div>
+    </div>
+    <div divider></div>
+    <div FBA class="collapsibleHead">
+      <div>
+        <!-- collapsible head - fbaCase -->
+        <h2>Fulfillment by Amazon</h2>
+        <button
+          id="dropDwn"
+          class="btn-fbaCase"
+          title="expand"
+          onclick="expp('fbaCase')"
+        >
+          <svg
+            id="arrw-fbaCase"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#fff"
+          >
+            <path d="M480-360 280-560h400L480-360Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div FBA>
+      <div class="fbaCase toolRows">
+        <!-- fbaCase -->
+        <div class="toolCol">
+          <div>
+            <!-- ILAC -->
+            <h2>ILAC</h2>
+            <br />
+            <input type="text" id="ilac" placeholder="POID" />
+            <button onclick="fbaCase('ilac')">view status</button>
+          </div>
+        </div>
+        <div class="toolCol">
+          <div>
+            <!-- FNSKU Lookup -->
+            <h2>FNSKU Lookup</h2>
+            <br />
+            <input type="text" id="hitchLook" placeholder="FNSKU" />
+            <button onclick="fbaCase('hitchLook')">
+              review FNSKU dispositions
+            </button>
+          </div>
+        </div>
+        <div class="toolCol">
+          <div>
+            <!-- Prep Instruction Manager -->
+            <h2>Prep Instruction Manager</h2>
+            <br />
+            <input type="text" id="PIM" placeholder="ASIN" />
+            <button onclick="fbaCase('PIM')">view prep instructions</button>
+          </div>
+        </div>
+        <div class="toolCol">
+          <div>
+            <!-- Removals Execution Viewer -->
+            <h2>Removals Execution Viewer</h2>
+            <br />
+            <input type="text" id="REV-FC" placeholder="FC ID" />
+            <input type="text" id="REV-VRET" placeholder="VRET ID" />
+            <button onclick="fbaCase('REV')">view dispositions</button>
+          </div>
+        </div>
+        <div class="toolCol">
+          <div>
+            <!-- RMS Lookup -->
+            <h2>RMS Lookup</h2>
+            <br />
+            <input type="text" id="rmsLookup" placeholder="RMSID" />
+            <button onclick="fbaCase('rmsLookup')">view RMS</button>
+          </div>
+        </div>
+        <div class="toolCol">
+          <div>
+            <!-- MYI Quantities Troubleshooter -->
+            <h2>MYI Quantities Troubleshooter</h2>
+            <br />
+            <input type="text" id="MYIQT-mcid" placeholder="MCID" />
+            <input type="text" id="MYIQT-fnsku" placeholder="FNSKU" />
+            <select id="MYIQT-rgn-NA" class="btn-EU">
+              <option value="1">US</option>
+              <option value="7">CA</option>
+              <option value="771770">BR</option>
+              <option value="526970">MX</option>
+            </select>
+            <select isNotMeen id="MYIQT-rgn-EU" class="btn-NA">
+              <option value="3">GB</option>
+              <option value="4">DE</option>
+              <option value="44551">ES</option>
+              <option value="5">FR</option>
+              <option value="35691">IT</option>
+              <option value="328451">NL</option>
+              <option value="712115121">PL</option>
+              <option value="704403121">SE</option>
+              <option value="338851">TR</option>
+              <option value="753556201">IE</option>
+            </select>
+            <select isMeen id="MYIQT-rgn-MEEN" class="btn-NA">
+              <option value="338801">AE</option>
+              <option value="338811">SA</option>
+              <option value="623225021">EG</option>
+            </select>
+            <button onclick="fbaCase('MYIQT')">view inventory</button>
+          </div>
+        </div>
+        <div FFT class="toolCol">
+          <div>
+            <!-- SWIVT -->
+            <h2>SWIVT</h2>
+            <br />
+            <input type="text" id="SWIVT-mcid" placeholder="MCID" />
+            <input type="text" id="SWIVT-fnsku" placeholder="FNSKU" />
+            <button onclick="fbaCase('SWIVT')">discrepancy check</button>
+          </div>
+        </div>
+        <div class="toolCol">
+          <div>
+            <!-- Does POID Match? (Unused Shipping Labels) -->
+            <h2>Does POID Match? (Unused Shipping Labels)</h2>
+            <br />
+            <input type="text" id="sidMatch-MCID" placeholder="MCID" />
+            <input type="text" id="sidMatch-POID" placeholder="POID" />
+            <button onclick="fbaCase('sidMatch')">determine matches</button>
+          </div>
+        </div>
+        <div class="toolCol">
+          <div>
+            <!-- FC Research -->
+            <h2>FC Research</h2>
+            <div class="FCRIsLoggedIn">
+              <div>
+                <input
+                  type="checkbox"
+                  id="check-FCR"
+                  onclick="enableTools('FCR')"
+                /><span>I am logged in</span>
+              </div>
+            </div>
+            <br />
+            <div FCRLoginIsFalse FCR-loggedIn>
+              <p style="padding-bottom: 0.5rem">
+                you may be required to log in using your Badge ID. in order to
+                determine your Badge ID, use FCLM.
+              </p>
+              <p style="padding-bottom: 0.5rem">
+                once you are logged in, close the tab; then check the box above
+                to access "FC Research".
+              </p>
+              <button
+                onclick="window.open(`https://fcmenu-${sessionStorage.getItem('intWebType')}-regionalized.corp.amazon.com/openid/login`)"
+              >
+                log in to access FC Research
+              </button>
+            </div>
+            <div FCRLoginIsTrue FCR-loggedIn>
+              <input type="text" id="FCR-FC" placeholder="FC ID" />
+              <select id="FCR-TYPE">
+                <option value="FNSKU">FNSKU</option>
+                <option value="LPN">LPN</option>
+              </select>
+              <input type="text" id="FCR-fnskuLPN" placeholder="FNSKU, LPN" />
+              <button onclick="fbaCase('FCR')">launch FC Research</button>
+            </div>
+          </div>
+        </div>
+        <div class="toolCol">
+          <div>
+            <!-- GRAVIS -->
+            <h2>GRAVIS</h2>
+            <br />
+            <select id="GRAVIS-TYPE">
+              <option value="returnPackage">Customer Order ID</option>
+              <option value="returnUnit">LPN</option>
+            </select>
+            <input type="text" id="GRAVIS-idnt" placeholder="CO ID, LPN" />
+            <button onclick="fbaCase('GRAVIS')">determine matches</button>
+          </div>
+        </div>
+        <div FFT class="toolCol">
+          <div>
+            <!-- Serenity -->
+            <h2>Serenity</h2>
+            <br />
+            <select id="serenity-type" onchange="selectSerenityType()">
+              <option value="pthfnd">Pathfinder Lookup</option>
+              <option value="nortn">FBA Product Refund</option>
+            </select>
+            <div id="serenity-pthfnd">
+              <input type="text" id="serenity-trid" placeholder="TRID" />
+            </div>
+            <div id="serenity-nortn">
+              <input type="text" id="serenity-coid" placeholder="CO ID" />
+            </div>
+            <div class="ledgerHasValue" style="padding-bottom: 0.5rem">
+              <div>
+                <input
+                  type="checkbox"
+                  id="serenityHasFNSKU"
+                  onclick="serenityHasFNSKU()"
+                /><span>has FNSKU?</span>
+              </div>
+            </div>
+            <input type="text" id="serenity-FNSKU" placeholder="FNSKU" />
+            <button id="serenity-btn" onclick="fbaCase('serenity')"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div FBA divider></div>
+    <div class="collapsibleHead">
+      <div>
+        <!-- collapsible head - scCase -->
+        <h2>Seller Central</h2>
+        <button
+          id="dropDwn"
+          class="btn-scCase"
+          title="expand"
+          onclick="expp('scCase')"
+        >
+          <svg
+            id="arrw-scCase"
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#fff"
+          >
+            <path d="M480-360 280-560h400L480-360Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="scCase toolRows">
+      <!-- scCase -->
+      <div class="toolCol">
+        <div>
+          <!-- Manage Your Inventory -->
+          <h2>Manage Your Inventory</h2>
+          <br />
+          <input type="text" id="MYI-idnt" placeholder="ASIN, SKU, FNSKU" />
+          <select id="MYI-type">
+            <option value="ASIN">ASIN</option>
+            <option value="SKU">SKU</option>
+            <option value="FNSKU">FNSKU</option>
+          </select>
+          <button onclick="scCase('MYI')">retrieve info</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Fix Your Products -->
+          <h2>Fix Your Products</h2>
+          <br />
+          <input type="text" id="FYP-idnt" placeholder="ASIN, SKU" />
+          <select id="FYP-type">
+            <option value="ASIN">ASIN</option>
+            <option value="SKU">SKU</option>
+          </select>
+          <button onclick="scCase('FYP')">view listing issues</button>
+        </div>
+      </div>
+      <div FBA class="toolCol">
+        <div>
+          <!-- Fix Stranded Inventory -->
+          <h2>Fix Stranded Inventory</h2>
+          <br />
+          <input type="text" id="FSI-idnt" placeholder="ASIN, SKU, FNSKU" />
+          <select id="FSI-type">
+            <option value="ASIN">ASIN</option>
+            <option value="SKU">SKU</option>
+            <option value="FNSKU">FNSKU</option>
+          </select>
+          <button onclick="scCase('FSI')">view stranded inventory</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Customer Order Details -->
+          <h2>Customer Order Details</h2>
+          <br />
+          <input type="text" id="mngOrd" placeholder="CO ID" />
+          <button onclick="scCase('mngOrd')">view order</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Manage Customer Order Returns -->
+          <h2>Manage Customer Order Returns</h2>
+          <br />
+          <input
+            type="text"
+            id="mngRet-idnt"
+            placeholder="CO ID, RMA, TRID, ASIN"
+          />
+          <select id="mngRet-type">
+            <option value="OrderId">Customer Order ID</option>
+            <option value="RmaId">RMA ID</option>
+            <option value="CarrierTrackingId">Tracking ID</option>
+            <option value="Asin">ASIN</option>
+          </select>
+          <button onclick="scCase('mngRet')">view order</button>
+        </div>
+      </div>
+      <div FBA class="toolCol">
+        <div>
+          <!-- Reimbursements Report -->
+          <h2>Reimbursements Report</h2>
+          <br />
+          <input type="text" id="rmsRep-rms" placeholder="RMSID" />
+          <button onclick="scCase('rmsRep')">view RMS details</button>
+        </div>
+      </div>
+      <div FBA class="toolCol">
+        <div>
+          <!-- Customer Shipment Sales -->
+          <h2>Customer Shipment Sales</h2>
+          <br />
+          <input
+            type="text"
+            id="cxShipSales-idnt"
+            placeholder="ASIN, FNSKU, CO ID"
+          />
+          <select id="cxShipSales-type">
+            <option value="ASIN">ASIN</option>
+            <option value="FNSKU">FNSKU</option>
+            <option value="COID">Customer Order ID</option>
+          </select>
+          <select id="cxShipSales-time">
+            <option value="0">Today</option>
+            <option value="1">Yesterday</option>
+            <option value="3">3 days</option>
+            <option value="7">7 days</option>
+            <option value="14">14 days</option>
+            <option value="30">30 days</option>
+            <option value="90">90 days</option>
+            <option value="180">180 days</option>
+            <option value="365">365 days</option>
+          </select>
+          <button onclick="scCase('cxShipSales')">view sales</button>
+        </div>
+      </div>
+      <div FBA class="toolCol">
+        <div>
+          <!-- Removal Order Details -->
+          <h2>Removal Order Details</h2>
+          <br />
+          <input type="text" id="ROid" placeholder="RO ID" />
+          <button onclick="scCase('ROid')">view Removal Order</button>
+        </div>
+      </div>
+      <div FBA class="toolCol">
+        <div>
+          <!-- FBA Customer Returns -->
+          <h2>FBA Customer Returns</h2>
+          <br />
+          <select id="fbaCustRet-type" onchange="selectFbaCustRetType()">
+            <option value="idnt">FBA Return Lookup</option>
+            <option value="lpn">LPN Lookup</option>
+          </select>
+          <div id="fbaCustRet-idnt">
+            <input
+              type="text"
+              id="fbaCustRet-idntINP"
+              placeholder="ASIN, SKU, FNSKU, CO ID"
+            />
+            <select id="fbaCustRet-idntTYP">
+              <option value="ASIN">ASIN</option>
+              <option value="SKU">SKU</option>
+              <option value="FNSKU">FNSKU</option>
+              <option value="COID">Customer Order ID</option>
+            </select>
+          </div>
+          <div id="fbaCustRet-lpn">
+            <input type="text" id="fbaCustRet-lpnINP" placeholder="LPN" />
+          </div>
+          <button id="fbaCustRet-btn" onclick="scCase('fbaCustRet')"></button>
+        </div>
+      </div>
+      <div FBA class="toolCol">
+        <div>
+          <!-- Shipment Summary -->
+          <h2>Shipment Summary</h2>
+          <br />
+          <input type="text" id="shipm" placeholder="PO ID" />
+          <button onclick="scCase('shipm')">view shipment</button>
+        </div>
+      </div>
+      <div FBA class="toolCol">
+        <div>
+          <!-- Inventory Ledger -->
+          <h2>Inventory Ledger</h2>
+          <button onclick="clearAllLedgerValues()">clear all values</button>
+          <br />
+          <div class="ledgerHasValue" style="padding-bottom: 0.5rem">
+            <div>
+              <input
+                type="checkbox"
+                id="ledgerHasASIN"
+                onclick="ledgerHasValue('ASIN')"
+              /><span>ASIN</span>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="ledgerHasSKU"
+                onclick="ledgerHasValue('SKU')"
+              /><span>SKU</span>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="ledgerHasFNSKU"
+                onclick="ledgerHasValue('FNSKU')"
+              /><span>FNSKU</span>
+            </div>
+          </div>
+          <input type="text" id="ledgerContainsASIN" placeholder="ASIN" />
+          <input type="text" id="ledgerContainsSKU" placeholder="SKU" />
+          <input type="text" id="ledgerContainsFNSKU" placeholder="FNSKU" />
+          <select id="ledgerEvt" onchange="isAdj()">
+            <option value="">Any</option>
+            <option value="Adjustments">Adjustments</option>
+            <option value="CustomerReturns">Customer Returns</option>
+            <option value="Receipts">Receipts (FBA Shipments)</option>
+            <option value="Shipments">FBA Shipments</option>
+            <option value="VendorReturns">Vendor Removals</option>
+            <option value="WhseTransfers">WhseTransfers</option>
+          </select>
+          <div
+            class="adjSelection ledgerHasValue"
+            style="padding-bottom: 0.5rem; display: none"
+          >
+            <div>
+              <input type="checkbox" id="adjDamaged" /><span>Damaged</span>
+            </div>
+            <div>
+              <input type="checkbox" id="adjDestroyed" /><span>Destroyed</span>
+            </div>
+            <div><input type="checkbox" id="adjFound" /><span>Found</span></div>
+            <div><input type="checkbox" id="adjLost" /><span>Lost</span></div>
+            <div><input type="checkbox" id="adjOther" /><span>Other</span></div>
+          </div>
+          <select id="ledgerDisp">
+            <option value="">Any</option>
+            <option value="CARRIER_DAMAGED">Carrier Damaged</option>
+            <option value="CUSTOMER_DAMAGED">Customer Damaged</option>
+            <option value="DEFECTIVE">Defective</option>
+            <option value="EXPIRED">Exipired</option>
+            <option value="SELLABLE">Sellable</option>
+            <option value="DISTRIBUTOR_DAMAGED">Distributor Damaged</option>
+            <option value="WAREHOUSE_DAMAGED">Warehouse Damaged</option>
+            <option value="UNSELLABLE_OTHER">Unsellable (Other)</option>
+          </select>
+          <div class="ledgerHasValue" style="padding-bottom: 0.5rem">
+            <div>
+              <input
+                type="checkbox"
+                id="ledgerHasTRID"
+                onclick="ledgerHasValue('TRID')"
+              /><span>TRID</span>
+            </div>
+            <div>
+              <input
+                type="checkbox"
+                id="ledgerHasFC"
+                onclick="ledgerHasValue('FC')"
+              /><span>FC</span>
+            </div>
+          </div>
+          <input type="text" id="ledgerContainsTRID" placeholder="TRID" />
+          <input type="text" id="ledgerContainsFC" placeholder="FC ID" />
+          <select id="ledgerTime">
+            <option value="1">Yesterday</option>
+            <option value="3">3 days</option>
+            <option value="7">7 days</option>
+            <option value="14">14 days</option>
+            <option value="30">30 days</option>
+            <option value="90">90 days (Dmg, Lost, Dstr)</option>
+            <option value="180">180 days (WhseTransfer)</option>
+            <option value="365">365 days</option>
+          </select>
+          <button onclick="scCase('ledger')">view report</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Help and Resources -->
+          <h2>Help and Resources</h2>
+          <br />
+          <input type="text" id="helpRes-query" placeholder="search query" />
+          <select id="helpRes-type">
+            <option value="helpPage">Help Page</option>
+            <option value="sellerUni">Seller University</option>
+          </select>
+          <button onclick="scCase('helpRes')">search</button>
+        </div>
+      </div>
+    </div>
+    <div divider style="height: 2.5rem"></div>
+    <img
+      isLight
+      src="data:image/png;base64,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"
+      alt="Selling Partner Services"
+    />
+    <img
+      isDark
+      src="data:image/png;base64,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"
+      alt="Selling Partner Services"
+    />
+    <div divider style="height: 2.5rem"></div>
   </body>
 </html>
