@@ -733,7 +733,7 @@
               ?.replaceAll(" ", "")
               ?.replaceAll(decodeURIComponent("%09"), "")
               ?.toUpperCase();
-            if (!!cIdnt && cIdnt.length == 10 && cIdnt?.startsWith("BO")) {
+            if (!!cIdnt && cIdnt.length == 10 && cIdnt?.startsWith("B0")) {
               return cIdnt;
             } else {
               throwAlert(type);
@@ -747,7 +747,7 @@
             if (
               !!cIdnt &&
               cIdnt.length == 10 &&
-              (cIdnt?.startsWith("BO") || cIdnt?.startsWith("X0"))
+              (cIdnt?.startsWith("B0") || cIdnt?.startsWith("X0"))
             ) {
               return cIdnt;
             } else {
@@ -1650,6 +1650,16 @@
               }
             }
             return;
+          case "suppCase":
+            window.open(
+              `https://${sessionStorage.getItem(
+                "scWeb"
+              )}.amazon.com/cu/case-dashboard/view-case?caseID=${globalIdentifierCheck(
+                document.getElementById("suppCID").value,
+                "CID"
+              )}`
+            );
+            return;
           default:
             throw new Error("undefined");
         }
@@ -2233,7 +2243,7 @@
             <!-- ILAC -->
             <h2>ILAC</h2>
             <br />
-            <input type="text" id="ilac" placeholder="POID" />
+            <input type="text" id="ilac" placeholder="PO ID" />
             <button onclick="fbaCase('ilac')">view status</button>
           </div>
         </div>
@@ -2321,11 +2331,11 @@
         </div>
         <div class="toolCol">
           <div>
-            <!-- Does POID Match? (Unused Shipping Labels) -->
-            <h2>Does POID Match? (Unused Shipping Labels)</h2>
+            <!-- Does PO ID Match? (Unused Shipping Labels) -->
+            <h2>Does PO ID Match? (Unused Shipping Labels)</h2>
             <br />
             <input type="text" id="sidMatch-MCID" placeholder="MCID" />
-            <input type="text" id="sidMatch-POID" placeholder="POID" />
+            <input type="text" id="sidMatch-POID" placeholder="PO ID" />
             <button onclick="fbaCase('sidMatch')">determine matches</button>
           </div>
         </div>
@@ -2362,9 +2372,13 @@
               <input type="text" id="FCR-FC" placeholder="FC ID" />
               <select id="FCR-TYPE">
                 <option value="FNSKU">FNSKU</option>
-                <option value="LPN">LPN</option>
+                <option value="LPN">LPN ID</option>
               </select>
-              <input type="text" id="FCR-fnskuLPN" placeholder="FNSKU, LPN" />
+              <input
+                type="text"
+                id="FCR-fnskuLPN"
+                placeholder="FNSKU, LPN ID"
+              />
               <button onclick="fbaCase('FCR')">launch FC Research</button>
             </div>
           </div>
@@ -2376,9 +2390,9 @@
             <br />
             <select id="GRAVIS-TYPE">
               <option value="returnPackage">Customer Order ID</option>
-              <option value="returnUnit">LPN</option>
+              <option value="returnUnit">LPN ID</option>
             </select>
-            <input type="text" id="GRAVIS-idnt" placeholder="CO ID, LPN" />
+            <input type="text" id="GRAVIS-idnt" placeholder="CO ID, LPN ID" />
             <button onclick="fbaCase('GRAVIS')">determine matches</button>
           </div>
         </div>
@@ -2392,7 +2406,7 @@
               <option value="nortn">FBA Product Refund</option>
             </select>
             <div id="serenity-pthfnd">
-              <input type="text" id="serenity-trid" placeholder="TRID" />
+              <input type="text" id="serenity-trid" placeholder="TR ID" />
             </div>
             <div id="serenity-nortn">
               <input type="text" id="serenity-coid" placeholder="CO ID" />
@@ -2496,7 +2510,7 @@
           <input
             type="text"
             id="mngRet-idnt"
-            placeholder="CO ID, RMA, TRID, ASIN"
+            placeholder="CO ID, RMA, TR ID, ASIN"
           />
           <select id="mngRet-type">
             <option value="OrderId">Customer Order ID</option>
@@ -2561,7 +2575,7 @@
           <br />
           <select id="fbaCustRet-type" onchange="selectFbaCustRetType()">
             <option value="idnt">FBA Return Lookup</option>
-            <option value="lpn">LPN Lookup</option>
+            <option value="lpn">LPN ID Lookup</option>
           </select>
           <div id="fbaCustRet-idnt">
             <input
@@ -2577,7 +2591,7 @@
             </select>
           </div>
           <div id="fbaCustRet-lpn">
-            <input type="text" id="fbaCustRet-lpnINP" placeholder="LPN" />
+            <input type="text" id="fbaCustRet-lpnINP" placeholder="LPN ID" />
           </div>
           <button id="fbaCustRet-btn" onclick="scCase('fbaCustRet')"></button>
         </div>
@@ -2663,7 +2677,7 @@
                 type="checkbox"
                 id="ledgerHasTRID"
                 onclick="ledgerHasValue('TRID')"
-              /><span>TRID</span>
+              /><span>TR ID</span>
             </div>
             <div>
               <input
@@ -2673,7 +2687,7 @@
               /><span>FC</span>
             </div>
           </div>
-          <input type="text" id="ledgerContainsTRID" placeholder="TRID" />
+          <input type="text" id="ledgerContainsTRID" placeholder="TR ID" />
           <input type="text" id="ledgerContainsFC" placeholder="FC ID" />
           <select id="ledgerTime">
             <option value="1">Yesterday</option>
@@ -2699,6 +2713,15 @@
             <option value="sellerUni">Seller University</option>
           </select>
           <button onclick="scCase('helpRes')">search</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Manage Support Cases -->
+          <h2>Manage Support Cases</h2>
+          <br />
+          <input type="text" id="suppCID" placeholder="Case ID" />
+          <button onclick="scCase('suppCase')">view case</button>
         </div>
       </div>
     </div>
