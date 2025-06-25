@@ -201,7 +201,7 @@
       /* panel views */
       [FBA],
       [FFT],
-      [IIDP] {
+      [BRS] {
         display: none;
       }
       /* display other LOBs when a specific LOB is enabled */
@@ -292,15 +292,13 @@
         }
       }
     </style>
-    <script src="js/_main.js" type="text/javascript"></script>
-    <script src="js/paragontools.js" type="text/javascript"></script>
     <script type="text/javascript">
       // stage 1: rgnSel()
       // stage 2: agtType(typ)
       // stage 3: themeMode(mde)
       // stage 4: onlyMeenIfEU() (EU ONLY)
       // stage 5: hdSel(rr);
-      function init() {
+      function initStart() {
         // provision the metadata
         sessionStorage.setItem("region", "na");
         sessionStorage.setItem("intWebType", "iad");
@@ -697,6 +695,7 @@
             }
           case "MCID": // merchant ID
           case "TRID": // transaction ID
+          case "BRID": // brand ID
             cIdnt = idnt
               ?.replaceAll(" ", "")
               ?.replaceAll(decodeURIComponent("%09"), "");
@@ -710,6 +709,7 @@
           case "HELP": // Help Page query
           case "SKU": // merchant SKU
           case "ROID": // removal order ID
+          case "BRNM": // brand name
             if (!idnt?.trim()) {
               throwAlert(type);
               return;
@@ -835,6 +835,20 @@
               throwAlert(type);
               return;
             }
+          case "BRCDE": // brand company code
+            if (!!idnt && idnt.length == 5) {
+              return idnt.toUpperCase();
+            } else {
+              throwAlert(type);
+              return;
+            }
+          case "MRCHTKN": // merchant token
+            if (!!idnt) {
+              return idnt.toUpperCase();
+            } else {
+              throwAlert(type);
+              return;
+            }
           default:
             throw new Error("undefined");
         }
@@ -860,6 +874,10 @@
             break;
           case "MCID":
             typ = "merchant ID";
+            str = "must be a number.";
+            break;
+          case "BRID":
+            typ = "brand ID";
             str = "must be a number.";
             break;
           case "ASIN":
@@ -912,6 +930,19 @@
             break;
           case "ROID":
             typ = "removal order ID";
+            break;
+          case "BRNM":
+            typ = "brand name";
+            break;
+          case "BRCDE":
+            typ = "brand company code";
+            str =
+              "must be 5 characters long. it will automatically be converted to uppercase.";
+            break;
+          case "MRCHTKN":
+            typ = "merchant token";
+            str =
+              "is required. it will automatically be converted to uppercase.";
             break;
           default:
             break;
@@ -1104,6 +1135,20 @@
               )}&listing_type=purchasable&submit=Show`
             );
             return;
+          case "badCat":
+            window.open(
+              `https://portal.prod.${sessionStorage.getItem(
+                "region"
+              )}.integrity.fee.selling-partners.amazon.dev/badcat?marketplace=${
+                document.getElementById(
+                  `badCat-rgn-${ifUsEuMeen(sessionStorage.getItem("region"))}`
+                ).value
+              }&asin=${globalIdentifierCheck(
+                document.getElementById("badCat-ASIN").value,
+                "ASIN"
+              )}`
+            );
+            return;
           case "submHist":
             window.open(
               `https://csi.amazon.com/view?view=submission_history&customer_id=${globalIdentifierCheck(
@@ -1119,6 +1164,31 @@
               )}&submit=Show`
             );
             return;
+          case "mediaCtr":
+            window.open(
+              `https://console.harmony.a2z.com/media-central/product-images?asin=${globalIdentifierCheck(
+                document.getElementById("mediaCtr-ASIN").value,
+                "ASIN"
+              )}&merchantID=${globalIdentifierCheck(
+                document.getElementById("mediaCtr-MCID").value,
+                "MCID"
+              )}`
+            );
+            return;
+          case "PARIS":
+            window.open(
+              `https://isweb-gp.amazon.com/gp/paris/merchantMarketplaceAttributeTool.html?utf8=%E2%9C%93&mcId=${globalIdentifierCheck(
+                document.getElementById("PARIS-MCID").value,
+                "MCID"
+              )}&mpId=${
+                document.getElementById(
+                  `PARIS-rgn-${ifUsEuMeen(sessionStorage.getItem("region"))}`
+                ).value
+              }&attName=merchantMarketplaceFraudStatus&realm=${sessionStorage
+                .getItem("region")
+                .toUpperCase()}`
+            );
+            return;
           case "globalsel":
             let rgnUPC = sessionStorage.getItem("region");
             window.open(
@@ -1129,6 +1199,35 @@
                 "MCID"
               )}`
             );
+            return;
+          case "brandReg":
+            window.open(
+              `https://internal.brandregistry.amazon.dev/i/search/q?${
+                document.getElementById("brandReg-select").value
+              }${globalIdentifierCheck(
+                document.getElementById("brandReg-input").value,
+                isType(document.getElementById("brandReg-select").value)
+              )}`
+            );
+            function isType(type) {
+              switch (type) {
+                case "id=":
+                  return "BRID";
+                case "name=":
+                  return "BRNM";
+                case "mcid=":
+                  return "MCID";
+                case "cid=":
+                  return "MCID";
+                case "companyCode=C%2F":
+                  return "BRCDE";
+                case "partnerAccountId=amzn1.pa.o.":
+                  return "MRCHTKN";
+                default:
+                  throw new Error("undefined");
+              }
+            }
+            return;
           default:
             throw new Error("undefined");
         }
@@ -1666,7 +1765,7 @@
       }
     </script>
   </head>
-  <body onload="init()">
+  <body onload="initStart()">
     <svg
       id="darkTheme"
       class="changeTheme-icon"
@@ -1790,7 +1889,7 @@
       </div>
       <br />
       <div>
-        <p>Select your LOB:</p>
+        <p>Select your skill:</p>
         <div class="lobSelectors">
           <div><input type="checkbox" id="check-M@" /><span>M@</span></div>
           <div>
@@ -1810,9 +1909,9 @@
           <div>
             <input
               type="checkbox"
-              id="check-IIDP"
-              onclick="enableTools('IIDP')"
-            /><span>IIDP</span>
+              id="check-BRS"
+              onclick="enableTools('BRS')"
+            /><span>BRS</span>
           </div>
         </div>
       </div>
@@ -2203,11 +2302,104 @@
       </div>
       <div class="toolCol">
         <div>
+          <!-- BadCat -->
+          <h2>BadCat</h2>
+          <br />
+          <input type="text" id="badCat-ASIN" placeholder="ASIN" />
+          <select id="badCat-rgn-NA" class="btn-EU">
+            <option value="US">US</option>
+            <option value="CA">CA</option>
+            <option value="BR">BR</option>
+            <option value="MX">MX</option>
+          </select>
+          <select isNotMeen id="badCat-rgn-EU" class="btn-NA">
+            <option value="GB">GB</option>
+            <option value="DE">DE</option>
+            <option value="ES">ES</option>
+            <option value="FR">FR</option>
+            <option value="IT">IT</option>
+            <option value="NL">NL</option>
+            <option value="PL">PL</option>
+            <option value="SE">SE</option>
+            <option value="TR">TR</option>
+            <option value="IE">IE</option>
+          </select>
+          <select isMeen id="badCat-rgn-MEEN" class="btn-NA">
+            <option value="AE">AE</option>
+            <option value="SA">SA</option>
+            <option value="EG">EG</option>
+          </select>
+          <button onclick="soaCase('badCat')">view referral fee details</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- Media Central -->
+          <h2>Media Central</h2>
+          <br />
+          <input type="text" id="mediaCtr-MCID" placeholder="MCID" />
+          <input type="text" id="mediaCtr-ASIN" placeholder="ASIN" />
+          <button onclick="soaCase('mediaCtr')">view product images</button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
+          <!-- PARIS -->
+          <h2>PARIS</h2>
+          <br />
+          <input type="text" id="PARIS-MCID" placeholder="MCID" />
+          <select id="PARIS-rgn-NA" class="btn-EU">
+            <option value="1">US</option>
+            <option value="7">CA</option>
+            <option value="771770">BR</option>
+            <option value="526970">MX</option>
+          </select>
+          <select isNotMeen id="PARIS-rgn-EU" class="btn-NA">
+            <option value="3">GB</option>
+            <option value="4">DE</option>
+            <option value="44551">ES</option>
+            <option value="5">FR</option>
+            <option value="35691">IT</option>
+            <option value="328451">NL</option>
+            <option value="712115121">PL</option>
+            <option value="704403121">SE</option>
+            <option value="338851">TR</option>
+            <option value="753556201">IE</option>
+          </select>
+          <select isMeen id="PARIS-rgn-MEEN" class="btn-NA">
+            <option value="338801">AE</option>
+            <option value="338811">SA</option>
+            <option value="623225021">EG</option>
+          </select>
+          <button onclick="soaCase('PARIS')">
+            view MarketplaceFraudStatus
+          </button>
+        </div>
+      </div>
+      <div class="toolCol">
+        <div>
           <!-- Global Selling Support Preferences -->
           <h2>Global Selling Support Preferences</h2>
           <br />
           <input type="text" id="globalsel" placeholder="MCID" />
           <button onclick="soaCase('globalsel')">determine COO</button>
+        </div>
+      </div>
+      <div BRS class="toolCol">
+        <div>
+          <!-- Brand Registry Profile -->
+          <h2>Brand Registry Profile</h2>
+          <br />
+          <select id="brandReg-select">
+            <option value="id=">Brand ID</option>
+            <option value="name=">Brand Name</option>
+            <option value="mcid=">MCID - Third-Party Seller</option>
+            <option value="cid=">MCID - Rights Owner</option>
+            <option value="companyCode=C%2F">Company Code</option>
+            <option value="partnerAccountId=amzn1.pa.o.">Merchant Token</option>
+          </select>
+          <input type="text" id="brandReg-input" placeholder="search value" />
+          <button onclick="soaCase('brandReg')">search</button>
         </div>
       </div>
     </div>
